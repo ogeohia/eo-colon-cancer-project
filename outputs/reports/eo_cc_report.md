@@ -1409,17 +1409,17 @@ Early-Onset-Colon-Cancer-Trends-CI5plus/
 │   │   ├── hierarchical_colon_nb_noyrep-*.csv # MCMC output CSVs
 │   │   ├── hierarchical_colon_nb_noyrep-*-stdout.txt # Stan logs
 │   │   ├── run_metadata.json          # Run configuration metadata
-│   │   └── stan-fit.o1664802          # PBS job output log
+│   │   ├── stan-fit.o1664802          # PBS job output log
+│   │   └── stan_full_meta.json        # Metadata for full Stan run
 │   │
 │   ├── figs/                          # Generated figures
 │   ├── reports/                       # Final reports
 │   │   ├── eo_cc_report.md            # Main analysis report (this file)
 │   │   └── eo_cc_report.pdf           # PDF version
-│   ├── salvaged/                      # Historical run outputs
-│   │   ├── 1648889/                   # Failed run artifacts
-│   │   ├── 1655612/                   # Failed run artifacts
-│   │   └── 1664802/                   # Successful run chains
-│   └── stan_full_meta.json            # Metadata for full Stan run
+│   └── salvaged/                      # Historical run outputs
+│       ├── 1648889/                   # Failed run artifacts
+│       ├── 1655612/                   # Failed run artifacts
+│       └── 1664802/                   # Successful run chains
 │
 ├── tests/                             # Validation tests
 │   ├── test_poisson_model.py          # Poisson GLM tests
