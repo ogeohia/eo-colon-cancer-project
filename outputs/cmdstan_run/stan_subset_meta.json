@@ -1,0 +1,13 @@
+{
+  "config": {
+    "name": "subset_debug",
+    "chains": 1,
+    "parallel_chains": 1,
+    "iter_warmup": 200,
+    "iter_sampling": 200,
+    "adapt_delta": 0.9,
+    "max_treedepth": 10,
+    "refresh": 50
+  },
+  "ok": false
+}

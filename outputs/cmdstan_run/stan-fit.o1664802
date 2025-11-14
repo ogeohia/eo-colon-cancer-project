@@ -1,0 +1,141 @@
+[PBS] JobID=1664802.pbs Queue=v1_throughput72 Nodefile=/var/spool/PBS/aux/1664802.pbs NCPUS=1
+[PBS] Workdir=/rds/general/user/oohia/home/Early-Onset-Colon-Cancer-Trends-CI5plus
+[ENV] Python=Python 3.11.14
+[ENV] CmdStanPy version: 1.2.5
+02:38:04 - cmdstanpy - INFO - compiling stan file /rds/general/user/oohia/home/Early-Onset-Colon-Cancer-Trends-CI5plus/models/hierarchical_colon_nb_noyrep.stan to exe file /rds/general/user/oohia/home/Early-Onset-Colon-Cancer-Trends-CI5plus/models/hierarchical_colon_nb_noyrep
+02:39:39 - cmdstanpy - INFO - compiled model executable: /rds/general/user/oohia/home/Early-Onset-Colon-Cancer-Trends-CI5plus/models/hierarchical_colon_nb_noyrep
+02:39:40 - cmdstanpy - INFO - Chain [1] start processing
+09:44:43 - cmdstanpy - INFO - Chain [1] done processing
+[Stan] allowed_cpus=1 threads_per_chain=8 parallel_chains=1
+Chain [1] method = sample (Default)
+Chain [1] sample
+Chain [1] num_samples = 1500
+Chain [1] num_warmup = 1000 (Default)
+Chain [1] save_warmup = false (Default)
+Chain [1] thin = 1 (Default)
+Chain [1] adapt
+Chain [1] engaged = true (Default)
+Chain [1] gamma = 0.05 (Default)
+Chain [1] delta = 0.98
+Chain [1] kappa = 0.75 (Default)
+Chain [1] t0 = 10 (Default)
+Chain [1] init_buffer = 75 (Default)
+Chain [1] term_buffer = 50 (Default)
+Chain [1] window = 25 (Default)
+Chain [1] save_metric = false (Default)
+Chain [1] algorithm = hmc (Default)
+Chain [1] hmc
+Chain [1] engine = nuts (Default)
+Chain [1] nuts
+Chain [1] max_depth = 12
+Chain [1] metric = diag_e (Default)
+Chain [1] metric_file =  (Default)
+Chain [1] stepsize = 1 (Default)
+Chain [1] stepsize_jitter = 0 (Default)
+Chain [1] num_chains = 1 (Default)
+Chain [1] id = 1 (Default)
+Chain [1] data
+Chain [1] file = /var/tmp/pbs.1664802.pbs/tmpbx6i999m/jdiwd7s6.json
+Chain [1] init = 2 (Default)
+Chain [1] random
+Chain [1] seed = 12345
+Chain [1] output
+Chain [1] file = /rds/general/user/oohia/home/Early-Onset-Colon-Cancer-Trends-CI5plus/outputs/cmdstan_run/hierarchical_colon_nb_noyrep-20251107023940.csv
+Chain [1] diagnostic_file =  (Default)
+Chain [1] refresh = 50
+Chain [1] sig_figs = 8 (Default)
+Chain [1] profile_file = profile.csv (Default)
+Chain [1] save_cmdstan_config = false (Default)
+Chain [1] num_threads = 8 (Default)
+Chain [1] 
+Chain [1] 
+Chain [1] Gradient evaluation took 0.010192 seconds
+Chain [1] 1000 transitions using 10 leapfrog steps per transition would take 101.92 seconds.
+Chain [1] Adjust your expectations accordingly!
+Chain [1] 
+Chain [1] 
+Chain [1] Iteration:    1 / 2500 [  0%]  (Warmup)
+Chain [1] Iteration:   50 / 2500 [  2%]  (Warmup)
+Chain [1] Iteration:  100 / 2500 [  4%]  (Warmup)
+Chain [1] Iteration:  150 / 2500 [  6%]  (Warmup)
+Chain [1] Iteration:  200 / 2500 [  8%]  (Warmup)
+Chain [1] Iteration:  250 / 2500 [ 10%]  (Warmup)
+Chain [1] Iteration:  300 / 2500 [ 12%]  (Warmup)
+Chain [1] Iteration:  350 / 2500 [ 14%]  (Warmup)
+Chain [1] Iteration:  400 / 2500 [ 16%]  (Warmup)
+Chain [1] Iteration:  450 / 2500 [ 18%]  (Warmup)
+Chain [1] Iteration:  500 / 2500 [ 20%]  (Warmup)
+Chain [1] Iteration:  550 / 2500 [ 22%]  (Warmup)
+Chain [1] Iteration:  600 / 2500 [ 24%]  (Warmup)
+Chain [1] Iteration:  650 / 2500 [ 26%]  (Warmup)
+Chain [1] Iteration:  700 / 2500 [ 28%]  (Warmup)
+Chain [1] Iteration:  750 / 2500 [ 30%]  (Warmup)
+Chain [1] Iteration:  800 / 2500 [ 32%]  (Warmup)
+Chain [1] Iteration:  850 / 2500 [ 34%]  (Warmup)
+Chain [1] Iteration:  900 / 2500 [ 36%]  (Warmup)
+Chain [1] Iteration:  950 / 2500 [ 38%]  (Warmup)
+Chain [1] Iteration: 1000 / 2500 [ 40%]  (Warmup)
+Chain [1] Iteration: 1001 / 2500 [ 40%]  (Sampling)
+Chain [1] Iteration: 1050 / 2500 [ 42%]  (Sampling)
+Chain [1] Iteration: 1100 / 2500 [ 44%]  (Sampling)
+Chain [1] Iteration: 1150 / 2500 [ 46%]  (Sampling)
+Chain [1] Iteration: 1200 / 2500 [ 48%]  (Sampling)
+Chain [1] Iteration: 1250 / 2500 [ 50%]  (Sampling)
+Chain [1] Iteration: 1300 / 2500 [ 52%]  (Sampling)
+Chain [1] Iteration: 1350 / 2500 [ 54%]  (Sampling)
+Chain [1] Iteration: 1400 / 2500 [ 56%]  (Sampling)
+Chain [1] Iteration: 1450 / 2500 [ 58%]  (Sampling)
+Chain [1] Iteration: 1500 / 2500 [ 60%]  (Sampling)
+Chain [1] Iteration: 1550 / 2500 [ 62%]  (Sampling)
+Chain [1] Iteration: 1600 / 2500 [ 64%]  (Sampling)
+Chain [1] Iteration: 1650 / 2500 [ 66%]  (Sampling)
+Chain [1] Iteration: 1700 / 2500 [ 68%]  (Sampling)
+Chain [1] Iteration: 1750 / 2500 [ 70%]  (Sampling)
+Chain [1] Iteration: 1800 / 2500 [ 72%]  (Sampling)
+Chain [1] Iteration: 1850 / 2500 [ 74%]  (Sampling)
+Chain [1] Iteration: 1900 / 2500 [ 76%]  (Sampling)
+Chain [1] Iteration: 1950 / 2500 [ 78%]  (Sampling)
+Chain [1] Iteration: 2000 / 2500 [ 80%]  (Sampling)
+Chain [1] Iteration: 2050 / 2500 [ 82%]  (Sampling)
+Chain [1] Iteration: 2100 / 2500 [ 84%]  (Sampling)
+Chain [1] Iteration: 2150 / 2500 [ 86%]  (Sampling)
+Chain [1] Iteration: 2200 / 2500 [ 88%]  (Sampling)
+Chain [1] Iteration: 2250 / 2500 [ 90%]  (Sampling)
+Chain [1] Iteration: 2300 / 2500 [ 92%]  (Sampling)
+Chain [1] Iteration: 2350 / 2500 [ 94%]  (Sampling)
+Chain [1] Iteration: 2400 / 2500 [ 96%]  (Sampling)
+Chain [1] Iteration: 2450 / 2500 [ 98%]  (Sampling)
+Chain [1] Iteration: 2500 / 2500 [100%]  (Sampling)
+Chain [1] 
+Chain [1] Elapsed Time: 11311.2 seconds (Warm-up)
+Chain [1] 14192.2 seconds (Sampling)
+Chain [1] 25503.4 seconds (Total)
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Chain [1] 
+Elapsed: 429.8 min; CPUs=256; chains=4
+Saved outputs to /rds/general/user/oohia/home/Early-Onset-Colon-Cancer-Trends-CI5plus/outputs
+[PBS] run_model.py exit status: 0

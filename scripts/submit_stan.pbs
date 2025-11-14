@@ -1,0 +1,41 @@
+#!/bin/bash
+#PBS -S /bin/bash
+#PBS -N stan-fit
+#PBS -j oe
+#PBS -V
+
+# Use safer error options; avoid -u due to conda activation scripts referencing unset vars
+set -e -o pipefail
+
+echo "[PBS] JobID=${PBS_JOBID:-NA} Queue=${PBS_QUEUE:-NA} Nodefile=${PBS_NODEFILE:-NA} NCPUS=${NCPUS:-${PBS_NP:-NA}}" | tee -a stan-fit.o${PBS_JOBID}.pbs
+echo "[PBS] Workdir=${PBS_O_WORKDIR:-$(pwd)}" | tee -a stan-fit.o${PBS_JOBID}.pbs
+
+# Move to submission directory if provided
+if [[ -n "${PBS_O_WORKDIR:-}" ]]; then
+	cd "$PBS_O_WORKDIR"
+fi
+
+# Try to activate conda env if available
+if [[ -f "$HOME/.bashrc" ]]; then
+	source "$HOME/.bashrc" || true
+fi
+if command -v conda >/dev/null 2>&1; then
+	conda activate colon-cancer-data || true
+fi
+
+echo "[ENV] Python=$(python -V 2>&1)" | tee -a stan-fit.o${PBS_JOBID}.pbs
+echo "[ENV] CmdStanPy version: $(python - <<'PY'
+import cmdstanpy as c; print(getattr(c,'__version__','?'))
+PY
+)" | tee -a stan-fit.o${PBS_JOBID}.pbs
+
+# Ensure output dirs exist
+mkdir -p outputs outputs/cmdstan_run
+
+# Run the model
+python scripts/run_model.py 2>&1 | tee -a stan-fit.o${PBS_JOBID}.pbs
+
+status=$?
+echo "[PBS] run_model.py exit status: $status" | tee -a stan-fit.o${PBS_JOBID}.pbs
+exit $status
+

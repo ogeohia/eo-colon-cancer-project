@@ -1,0 +1,21 @@
+name: colon-cancer-data
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - patsy
+  - cmdstanpy>=1.2
+  - arviz
+  - xarray
+  - netcdf4
+  - scipy
+  - matplotlib
+  - seaborn
+  - ipykernel
+  - jupyterlab
+  - notebook
+  - cxx-compiler
+  - make
+  - pip

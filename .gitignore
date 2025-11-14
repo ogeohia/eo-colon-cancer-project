@@ -1,0 +1,52 @@
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb~ 
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+.pytest_cache/
+
+# Virtual environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Editor/IDE
+.vscode/
+.copilot/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+git_session_log.txt
+
+# Stan models - ignore compiled binaries, keep .stan sources
+/models/hierarchical_colon_nb
+/models/hierarchical_colon_nb_noyrep
+
+# Outputs from CmdStan - track everything except tmp/ and specific large CSV run artifacts
+/outputs/cmdstan_run/tmp/**
+
+# Ignore only explicitly large generated draws CSVs
+/outputs/cmdstan_run/gq_1664802/hierarchical_colon_nb-20251107155530.csv
+/outputs/cmdstan_run/hierarchical_colon_nb_noyrep-20251107023940.csv
+# Allow ppc summary CSVs and other small CSVs by default (no blanket CSV ignore)
+
+
+# Salvaged/other heavy outputs
+/outputs/salvaged
+
+# Archive - don't track archived artifacts
+/archive/**
+# (legacy) explicitly ignore large CSV log dumps (redundant with above, kept for clarity)
+/archive/cmdstan_logs_csvs/**/*.csv
+

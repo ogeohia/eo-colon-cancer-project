@@ -1,0 +1,14 @@
+{
+  "config": {
+    "name": "debug1",
+    "chains": 4,
+    "parallel_chains": 4,
+    "iter_warmup": 300,
+    "iter_sampling": 300,
+    "adapt_delta": 0.95,
+    "max_treedepth": 12,
+    "step_size": null,
+    "refresh": 50
+  },
+  "ok": false
+}

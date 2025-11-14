@@ -1,0 +1,6 @@
+Partial stabilize diagnostics at 2025-11-03 18:47:18 (job 1648013)
+file,draws,divergences,divergence_rate,max_treedepth,max_n_leapfrog
+hierarchical_colon_nb-20251103122349_1.csv,257,4,1.56%,12,4095
+hierarchical_colon_nb-20251103122349_2.csv,179,0,0.00%,12,4095
+hierarchical_colon_nb-20251103122349_3.csv,205,2,0.98%,12,4095
+hierarchical_colon_nb-20251103122349_4.csv,171,0,0.00%,12,4095

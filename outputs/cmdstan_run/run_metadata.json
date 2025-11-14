@@ -1,0 +1,28 @@
+{
+  "cmdstanpy_version": "1.2.5",
+  "cmdstan_path": "/rds/general/user/oohia/home/.conda/envs/colon-cancer-data/bin/cmdstan",
+  "python": "3.11.14 | packaged by conda-forge | (main, Oct 13 2025, 14:09:32) [GCC 14.3.0]",
+  "platform": "Linux-4.18.0-348.20.1.el8_5.x86_64-x86_64-with-glibc2.28",
+  "packages": {
+    "numpy": "2.3.4",
+    "pandas": "2.3.3",
+    "scipy": "1.16.2",
+    "arviz": "0.22.0"
+  },
+  "env": {
+    "STAN_MODE": "full",
+    "STAN_METRIC": "diag_e",
+    "STAN_NUM_THREADS": "8",
+    "STAN_THREADS_PER_CHAIN": "8",
+    "STAN_CHAINS": "1",
+    "STAN_WARMUP": "1000",
+    "STAN_SAMPLING": "1500",
+    "STAN_ADAPT_DELTA": "0.98",
+    "STAN_MAX_TREEDEPTH": "12",
+    "PBS_JOBID": "1664802.pbs",
+    "PBS_QUEUE": "v1_throughput72",
+    "PBS_NP": null,
+    "NCPUS": "1",
+    "SLURM_CPUS_PER_TASK": null
+  }
+}
