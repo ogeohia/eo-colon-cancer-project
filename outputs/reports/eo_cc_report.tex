@@ -1,9 +1,11 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  oneside]{article}
+  a4paper,
+]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -33,7 +35,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -42,36 +44,36 @@
 % Add ',fontsize=\small' for more characters per line
 \newenvironment{Shaded}{}{}
 \newcommand{\AlertTok}[1]{\textbf{#1}}
-\newcommand{\AnnotationTok}[1]{\textbf{\textit{#1}}}
+\newcommand{\AnnotationTok}[1]{\textit{#1}}
 \newcommand{\AttributeTok}[1]{#1}
 \newcommand{\BaseNTok}[1]{#1}
 \newcommand{\BuiltInTok}[1]{#1}
 \newcommand{\CharTok}[1]{#1}
 \newcommand{\CommentTok}[1]{\textit{#1}}
-\newcommand{\CommentVarTok}[1]{\textbf{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textit{#1}}
 \newcommand{\ConstantTok}[1]{#1}
 \newcommand{\ControlFlowTok}[1]{\textbf{#1}}
-\newcommand{\DataTypeTok}[1]{#1}
+\newcommand{\DataTypeTok}[1]{\underline{#1}}
 \newcommand{\DecValTok}[1]{#1}
 \newcommand{\DocumentationTok}[1]{\textit{#1}}
 \newcommand{\ErrorTok}[1]{\textbf{#1}}
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{#1}
 \newcommand{\FunctionTok}[1]{#1}
-\newcommand{\ImportTok}[1]{\textbf{#1}}
-\newcommand{\InformationTok}[1]{\textbf{\textit{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textit{#1}}
 \newcommand{\KeywordTok}[1]{\textbf{#1}}
 \newcommand{\NormalTok}[1]{#1}
 \newcommand{\OperatorTok}[1]{#1}
 \newcommand{\OtherTok}[1]{#1}
-\newcommand{\PreprocessorTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textbf{#1}}
 \newcommand{\RegionMarkerTok}[1]{#1}
 \newcommand{\SpecialCharTok}[1]{#1}
 \newcommand{\SpecialStringTok}[1]{#1}
 \newcommand{\StringTok}[1]{#1}
 \newcommand{\VariableTok}[1]{#1}
 \newcommand{\VerbatimStringTok}[1]{#1}
-\newcommand{\WarningTok}[1]{\textbf{\textit{#1}}}
+\newcommand{\WarningTok}[1]{\textit{#1}}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -99,16 +101,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
-% Center all images
-\usepackage{float}
-\let\origfigure\figure
-\let\endorigfigure\endfigure
-\renewenvironment{figure}[1][H]{%
-  \origfigure[#1]
-  \centering
-}{%
-  \endorigfigure
-}
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -116,16 +108,23 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
-  hidelinks,
+  colorlinks=true,
+  linkcolor={black},
+  filecolor={Maroon},
+  citecolor={black},
+  urlcolor={black},
   pdfcreator={LaTeX via pandoc}}
 
 \author{}
 \date{}
 
 \begin{document}
-\hypertarget{early-onset-colon-cancer-trends-analysis-ci5plus-dataset}{%
-\section{Early-Onset Colon Cancer Trends Analysis: CI5plus
-Dataset}\label{early-onset-colon-cancer-trends-analysis-ci5plus-dataset}}
+\pagecolor{white}
+\color{black}
+
+\hypertarget{early-onset-colon-cancer-trends-analysis-ci5plus}{%
+\section{Early-Onset Colon Cancer Trends Analysis
+(CI5plus)}\label{early-onset-colon-cancer-trends-analysis-ci5plus}}
 
 \hypertarget{a-hierarchical-bayesian-modeling-approach}{%
 \subsection{A Hierarchical Bayesian Modeling
@@ -133,10 +132,12 @@ Approach}\label{a-hierarchical-bayesian-modeling-approach}}
 
 \textbf{Author:} Oge Ohia\\
 \textbf{Project Repository:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus}{Early-Onset-Colon-Cancer-Trends-CI5plus}
+\href{https://github.com/ogeohia/eo-colon-cancer-project}{eo-colon-cancer-project}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
 {
+\hypersetup{linkcolor=}
 \setcounter{tocdepth}{3}
 \tableofcontents
 }
@@ -147,7 +148,7 @@ Approach}\label{a-hierarchical-bayesian-modeling-approach}}
 This project investigates \textbf{global temporal and geographical
 trends in early-onset colon cancer incidence} (ages \textless50 years)
 using the International Agency for Research on Cancer (IARC) CI5plus
-registry data (1978-2017). We employ hierarchical Bayesian models
+registry data (1978--2017). We employ hierarchical Bayesian models
 implemented in Stan to quantify registry-level incidence trends while
 accounting for country and region hierarchies, sex-specific patterns,
 age effects, and socioeconomic variation.
@@ -164,7 +165,7 @@ age effects, and socioeconomic variation.
   trends
 \item
   Sex-specific patterns vary substantially across geographic regions;
-  males show \textasciitilde20\% higher incidence (IRR ? 1.20)
+  males show \textasciitilde20\% higher incidence (IRR $\\approx$ 1.20)
 \item
   Age effects exhibit non-linear patterns best captured through B-spline
   bases (4 degrees of freedom)
@@ -217,7 +218,7 @@ age, sex, and region?
   How do early-onset colon cancer incidence rates vary across countries
   and regions?
 \item
-  What are the temporal trends (1978-2017) in incidence by sex and age
+  What are the temporal trends (1978--2017) in incidence by sex and age
   group?
 \item
   How does socioeconomic development (HDI) correlate with incidence
@@ -240,6 +241,9 @@ Selection}\label{data-source-and-cohort-selection}}
 International Agency for Research on Cancer (IARC)\\
 \textbf{URL:} https://ci5.iarc.fr/CI5plus/
 
+See \href{data/README.md}{\texttt{data/README.md}} for detailed data
+documentation, and citations.
+
 \textbf{Inclusion Criteria:}
 
 \begin{itemize}
@@ -248,16 +252,17 @@ International Agency for Research on Cancer (IARC)\\
   \textbf{Cancer site:} Colon (ICD-O-3 code:
   \texttt{cancer\_code\ ==\ 21})
 \item
-  \textbf{Age range:} 15-79 years (exclude ages 0-14, 80+, and unknown)
+  \textbf{Age range:} 15--79 years (exclude ages 0--14, 80+, and
+  unknown)
 
   \begin{itemize}
   \tightlist
   \item
-    Age bands converted to midpoints (17.5-77.5 years) as continuous
+    Age bands converted to midpoints (17.5--77.5 years) as continuous
     variable \texttt{age\_cont}
   \end{itemize}
 \item
-  \textbf{Years:} 1978-2017
+  \textbf{Years:} 1978--2017
 \item
   \textbf{Geographic coverage:} Registry summary tables spanning
   multiple continents
@@ -280,7 +285,7 @@ International Agency for Research on Cancer (IARC)\\
 \end{itemize}
 
 \textbf{Data Preparation Workflow:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/notebooks/00_data-prep.ipynb}{\texttt{notebooks/00\_data-prep.ipynb}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/00_data-prep.ipynb}{\texttt{notebooks/00\_data-prep.ipynb}}
 
 \hypertarget{variables-and-covariates}{%
 \subsubsection{2.2 Variables and
@@ -314,7 +319,7 @@ Covariates}\label{variables-and-covariates}}
   \textbf{Sex:} Binary indicator (\texttt{sex\_label}: Male vs.~Female
   {[}reference{]})
 \item
-  \textbf{Year:} Calendar year (1978-2017), centered for numerical
+  \textbf{Year:} Calendar year (1978--2017), centered for numerical
   stability (\texttt{year\_c})
 \item
   \textbf{Geography:}
@@ -352,7 +357,7 @@ Covariates}\label{variables-and-covariates}}
 \subsubsection{2.3 Data Processing Steps}\label{data-processing-steps}}
 
 \textbf{Workflow:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/notebooks/00_data-prep.ipynb}{\texttt{notebooks/00\_data-prep.ipynb}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/00_data-prep.ipynb}{\texttt{notebooks/00\_data-prep.ipynb}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -360,15 +365,17 @@ Covariates}\label{variables-and-covariates}}
 \item
   \textbf{Filter colon cancer records} (\texttt{cancer\_code\ ==\ 21})
 \item
-  \textbf{Merge registry metadata} (country codes, continents)
+  \textbf{Merge registry metadata} to map continent and country names.
+  Keep UK regions data separate
 \item
-  \textbf{Join UN M49 regions and apply manual region corrections} for
-  misclassified or ambiguous registries
+  \textbf{Join UN M49 regions and apply manual corrections} for
+  misclassified or special cases
 \item
   \textbf{Join HDI data} and assign categorical HDI levels; fill missing
   values manually where appropriate
 \item
-  \textbf{Filter temporal range} (1978-2017) and age range (15-79 years)
+  \textbf{Filter temporal range} (1978--2017) and age range (15--79
+  years)
 \item
   \textbf{Construct continuous mid-age variable} (\texttt{age\_cont})
   from 5-year age bands
@@ -390,9 +397,9 @@ Covariates}\label{variables-and-covariates}}
 \end{enumerate}
 
 \textbf{Output Dataset:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/data/colon_cancer_full.csv}{\texttt{data/colon\_cancer\_full.csv}}\\
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/data/colon_cancer_full.csv}{\texttt{data/colon\_cancer\_full.csv}}\\
 \textbf{Approximate size:} \textasciitilde150,000 registry-year-age-sex
-records across 10-15 major registries spanning \textasciitilde25 years
+records across 10--15 major registries spanning \textasciitilde25 years
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -404,7 +411,7 @@ Analysis}\label{exploratory-data-analysis}}
 \subsubsection{3.1 Descriptive
 Statistics}\label{descriptive-statistics}}
 
-\textbf{Aggregation Strategy 1:} Country-level totals (1978-2017)
+\textbf{Aggregation Strategy 1:} Country-level totals (1978--2017)
 
 \begin{itemize}
 \tightlist
@@ -438,10 +445,10 @@ Statistics}\label{descriptive-statistics}}
 \tightlist
 \item
   Exploratory Data Analysis:
-  \href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/notebooks/01_eda.ipynb}{\texttt{notebooks/01\_eda.ipynb}}
+  \href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/01_eda.ipynb}{\texttt{notebooks/01\_eda.ipynb}}
 \item
   Trend Analysis:
-  \href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/notebooks/02_trend-analysis.ipynb}{\texttt{notebooks/02\_trend-analysis.ipynb}}
+  \href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/02_trend-analysis.ipynb}{\texttt{notebooks/02\_trend-analysis.ipynb}}
 \end{itemize}
 
 \hypertarget{key-visualizations}{%
@@ -458,13 +465,13 @@ Levels}\label{distribution-of-incidence-rates-country-vs.-stratum-levels}}
 \end{figure}
 
 \emph{\textbf{Figure 1:} Comparison of ASIR distributions at
-country-level (n=48 countries) vs.~stratum-level (n?90,000
+country-level (n=48 countries) vs.~stratum-level (n$\\approx$90,000
 observations). Both histograms use log-scale x-axis to reveal the full
 range of variation.}
 
 \textbf{(A) Country-Level Mean ASIR (left panel):} Distribution of mean
 ASIR aggregated across all years, ages, and sexes within each country.
-Right-skewed distribution with mode \textasciitilde10-12 per 100,000,
+Right-skewed distribution with mode \textasciitilde10--12 per 100,000,
 ranging from \textasciitilde0.7 (India) to \textasciitilde27 (Czech
 Republic), representing a \textbf{38-fold between-country variation}.
 This reflects baseline geographic and socioeconomic differences in colon
@@ -478,21 +485,21 @@ right-skewed} with:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Massive left peak (\textasciitilde0.1-0.2 per 100k):}
-  Dominated by young-age strata (15-30 years) where incidence is
+  \textbf{Massive left peak (\textasciitilde0.1--0.2 per 100k):}
+  Dominated by young-age strata (15--30 years) where incidence is
   inherently low, particularly in low-risk countries and among females
 \item
   \textbf{Long right tail (up to 500+ per 100k):} Rare high-risk strata
-  (males, ages 45-49, high-incidence countries like Czech Republic and
+  (males, ages 45--49, high-incidence countries like Czech Republic and
   Denmark)
 \item
   \textbf{50,000-fold range:} Reflects the combined effects of age
   (exponential increase), sex (male excess \textasciitilde20\%),
-  geography (country/region), and time (temporal trends 1978-2017)
+  geography (country/region), and time (temporal trends 1978--2017)
 \end{itemize}
 
 \textbf{Key Insight:} The stratum-level distribution reveals that
-\textbf{within-country variability (age x sex x year) is orders of
+\textbf{within-country variability (age × sex × year) is orders of
 magnitude larger than between-country variability} (50,000-fold
 vs.~38-fold). The massive left peak explains why young-onset colon
 cancer is considered ``rare'' in absolute terms, even though rates are
@@ -512,11 +519,11 @@ screening and surveillance.
   \textbf{Overdispersion modeling required:} Poisson models (assuming
   Var = Mean) would severely underestimate variance in the tail;
   Negative Binomial explicitly models excess variance via dispersion
-  parameter ?
+  parameter \phi
 \item
   \textbf{Hierarchical structure justified:} The contrast between panels
   A and B demonstrates why country/region random effects are
-  needed--stratum-level predictions must be partially pooled toward
+  needed---stratum-level predictions must be partially pooled toward
   country means to stabilize estimates in sparse cells (low-count
   observations)
 \item
@@ -531,7 +538,7 @@ remains rare in absolute terms for younger ages. However, the long tail
 (ASIR \textgreater{} 100) identifies high-risk strata where incidence
 approaches that of traditional screening ages (50+ years), suggesting
 potential benefit from earlier screening initiation in these populations
-(e.g., males aged 45-49 in high-incidence countries).*
+(e.g., males aged 45--49 in high-incidence countries).*
 
 \textbf{Additional Exploratory Plots:}
 
@@ -613,7 +620,7 @@ and quantify uncertainty at multiple levels.
 Models}\label{baseline-generalized-linear-models}}
 
 \textbf{Notebook:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/notebooks/03_poisson-NB-regression.ipynb}{\texttt{notebooks/03\_poisson-NB-regression.ipynb}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/03_poisson-NB-regression.ipynb}{\texttt{notebooks/03\_poisson-NB-regression.ipynb}}
 
 \hypertarget{general-model-specification}{%
 \paragraph{General Model
@@ -698,7 +705,7 @@ Where:
 \end{itemize}
 
 \textbf{Comprehensive Interpretation Guide:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/docs/poisson_model_interpretation.md}{\texttt{docs/poisson\_model\_interpretation.md}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/docs/poisson_model_interpretation.md}{\texttt{docs/poisson\_model\_interpretation.md}}
 
 \emph{This guide provides detailed coefficient interpretation,
 prediction methods, confidence interval construction, and best practices
@@ -773,12 +780,13 @@ Poisson (blue) and Negative Binomial (orange) models. The perfect fit
 line (black dashed) shows ideal calibration. Negative Binomial
 demonstrates better calibration with tighter clustering around the line
 and reduced fan-shaped scatter, particularly in the bulk of the data
-(0-4000 cases). Both models show conservative predictions at the highest
-observed counts (\textgreater5000), with NB exhibiting appropriate
-shrinkage characteristic of partial pooling in overdispersed data.}
+(0--4000 cases). Both models show conservative predictions at the
+highest observed counts (\textgreater5000), with NB exhibiting
+appropriate shrinkage characteristic of partial pooling in overdispersed
+data.}
 
 \textbf{Comprehensive Interpretation Guide:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/docs/NB_model_interpretation.md}{\texttt{docs/NB\_model\_interpretation.md}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/docs/NB_model_interpretation.md}{\texttt{docs/NB\_model\_interpretation.md}}
 
 \emph{This guide explains overdispersion modeling, variance structures,
 the dispersion parameter (\(\phi\) or \(\alpha\)), diagnostic tests
@@ -791,10 +799,10 @@ prefer Negative Binomial over Poisson models.}
 \tightlist
 \item
   Poisson:
-  \href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/tests/test_poisson_model.py}{\texttt{tests/test\_poisson\_model.py}}
+  \href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_poisson_model.py}{\texttt{tests/test\_poisson\_model.py}}
 \item
   Negative Binomial:
-  \href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/tests/test_negativebinomial_model.py}{\texttt{tests/test\_negativebinomial\_model.py}}
+  \href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_negativebinomial_model.py}{\texttt{tests/test\_negativebinomial\_model.py}}
 \end{itemize}
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
@@ -820,18 +828,18 @@ partial pooling. This approach:
 \end{itemize}
 
 \textbf{Stan Implementation Notebook:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/notebooks/04_pbs-stan-model.ipynb}{\texttt{notebooks/04\_pbs-stan-model.ipynb}}\\
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/04_pbs-stan-model.ipynb}{\texttt{notebooks/04\_pbs-stan-model.ipynb}}\\
 \textbf{Stan Model File:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/models/hierarchical_colon_nb.stan}{\texttt{models/hierarchical\_colon\_nb.stan}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/models/hierarchical_colon_nb.stan}{\texttt{models/hierarchical\_colon\_nb.stan}}
 
 \textbf{Comprehensive Interpretation Guide:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/docs/Stan_model_interpretation.md}{\texttt{docs/Stan\_model\_interpretation.md}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/docs/Stan_model_interpretation.md}{\texttt{docs/Stan\_model\_interpretation.md}}
 
 \emph{This guide provides in-depth coverage of hierarchical Bayesian
 modeling including: partial pooling mechanisms and shrinkage,
 interpretation of random effects and variance components, Bayesian
 inference (credible intervals, posterior probabilities), convergence
-diagnostics (R, ESS, divergent transitions), MCMC sampling
+diagnostics (R̂, ESS, divergent transitions), MCMC sampling
 configuration, and HPC execution on Imperial College cluster.}
 
 \hypertarget{model-specification}{%
@@ -840,8 +848,8 @@ configuration, and HPC execution on Imperial College cluster.}
 \textbf{Hierarchical Structure:}
 
 \begin{verbatim}
-Region (?_r) -- ?_region
-  +- Country (u_j | region r) -- ?_country
+Region (\gamma_r) — \sigma_region
+  +- Country (u_j | region r) — \sigma_country
       +- Observation (y_n | country j)
 \end{verbatim}
 
@@ -993,7 +1001,7 @@ near realistic values \\
   \tightlist
   \item
     Script:
-    \href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/scripts/generate_yrep.py}{\texttt{scripts/generate\_yrep.py}}
+    \href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/scripts/generate_yrep.py}{\texttt{scripts/generate\_yrep.py}}
   \item
     Reads fitted parameters from Phase 1
   \item
@@ -1018,7 +1026,7 @@ near realistic values \\
   \textbf{Backend:} CmdStanPy with within-chain threading enabled
 \item
   \textbf{Submission script:}
-  \href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/scripts/submit_tune_then_full_pbs.sh}{\texttt{scripts/submit\_tune\_then\_full\_pbs.sh}}
+  \href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/scripts/submit_tune_then_full_pbs.sh}{\texttt{scripts/submit\_tune\_then\_full\_pbs.sh}}
 \item
   \textbf{Parallelization:} \texttt{reduce\_sum} for threading within
   chains (vectorized log-likelihood)
@@ -1038,7 +1046,7 @@ near realistic values \\
 \item
   \textbf{Sampling iterations:} 2,000 per chain (post-warmup)
 \item
-  \textbf{Total draws:} 8,000 (4 chains x 2,000 iterations)
+  \textbf{Total draws:} 8,000 (4 chains × 2,000 iterations)
 \item
   \textbf{Thinning:} None (Stan's NUTS is efficient; thinning
   unnecessary)
@@ -1121,7 +1129,7 @@ near realistic values \\
 \tightlist
 \item
   Deviance/df ratio: Substantially \textgreater{} 1 (typical value:
-  5-10)
+  5--10)
 \item
   Interpretation: Strong evidence of overdispersion; variance exceeds
   mean
@@ -1164,17 +1172,16 @@ near realistic values \\
 
 \begin{figure}
 \centering
-\includegraphics{../cmdstan_run/gq_1664802/age_incidence_curve.png}
+\includegraphics[width=0.65\textwidth,height=\textheight]{../cmdstan_run/gq_1664802/age_incidence_curve.png}
 \caption{Age-Incidence Curve}
 \end{figure}
 
 \emph{\textbf{Figure 3:} Predicted colon cancer incidence rate vs.~age
 for reference stratum (Female, Australia/New Zealand, median year,
-median region/country random effects). Shaded region represents 95\%
-credible interval. The curve exhibits characteristic exponential
-increase with age, with steepest gradient after age 40, consistent with
-somatic mutation accumulation models and prolonged carcinogenic
-exposures.}
+median region/country random effects). The curve exhibits characteristic
+exponential increase with age, acceleratinh sharply after about
+\textasciitilde50, consistent with somatic mutation accumulation models
+and prolonged carcinogenic exposures.}
 
 \hypertarget{interpretation}{%
 \paragraph{Interpretation}\label{interpretation}}
@@ -1195,7 +1202,7 @@ exposures.}
   (5-year bands in original data)
 \item
   \textbf{Uncertainty quantification:} 95\% CI widens at extremes (ages
-  15-25 and 70-79) where data are sparser
+  15--25 and 70--79) where data are sparser
 \end{itemize}
 
 \hypertarget{temporal-trends}{%
@@ -1222,11 +1229,11 @@ exposures.}
     \textasciitilde1.2\% annual increase in early-onset colon cancer
     incidence rates globally
   \item
-    Over 10 years: \((1.012)^{10} \approx 1.13\) -\textgreater{} 13\%
-    cumulative increase
+    Over 10 years: \((1.012)^{10} \approx 1.13\) → 13\% cumulative
+    increase
   \item
-    Over 39 years (1978-2017): \((1.012)^{39} \approx 1.59\)
-    -\textgreater{} 59\% cumulative increase
+    Over 39 years (1978--2017): \((1.012)^{39} \approx 1.59\) → 59\%
+    cumulative increase
   \end{itemize}
 \end{itemize}
 
@@ -1320,7 +1327,7 @@ Disparities}\label{regional-variation-in-sex-disparities}}
   Male excess may be stronger in specific regions (e.g., Northern
   Europe)
 \item
-  Future enhancement: Sex x region interaction terms to quantify
+  Future enhancement: Sex × region interaction terms to quantify
   heterogeneity explicitly
 \end{itemize}
 
@@ -1406,7 +1413,7 @@ Heterogeneity}\label{hierarchical-effects-and-geographic-heterogeneity}}
   customization rather than one-size-fits-all regional approaches
 \end{itemize}
 
-\textbf{Country-Level ASIR Distribution (Ages 15-79, 1978-2017):}
+\textbf{Country-Level ASIR Distribution (Ages 15--79, 1978--2017):}
 
 \textbf{Top 5 High-Incidence Countries:}
 
@@ -1562,7 +1569,7 @@ Assessment}\label{regional-calibration-assessment}}
   \item
     90\% PI upper bound: \textasciitilde70,000 cases
   \item
-    \textbf{Severity:} Observed far exceeds 90\% PI (\textgreater4?
+    \textbf{Severity:} Observed far exceeds 90\% PI (\textgreater4\sigma
     deviation)
   \end{itemize}
 \end{itemize}
@@ -1609,10 +1616,10 @@ Under-Prediction}\label{potential-explanations-for-northern-america-under-predic
   \item
     Current model uses fixed region effects and country random effects
   \item
-    May need \textbf{region x year interactions} to capture differential
+    May need \textbf{region × year interactions} to capture differential
     temporal trends
   \item
-    Or \textbf{region x age interactions} to allow age patterns to vary
+    Or \textbf{region × age interactions} to allow age patterns to vary
     by region
   \end{itemize}
 \item
@@ -1638,7 +1645,7 @@ Recommendations}\label{model-improvement-recommendations}}
 \item
   Fit separate model for Northern America vs.~rest-of-world
 \item
-  Add region x year interaction terms
+  Add region × year interaction terms
 \item
   Use \textbf{non-centered parameterization} with stronger priors on
   \(\sigma_{\text{region}}\) to reduce shrinkage
@@ -1702,7 +1709,7 @@ Assessment}\label{sex-specific-calibration-assessment}}
 \begin{itemize}
 \tightlist
 \item
-  Model slightly under-predicts male case totals (\textasciitilde2-5\%
+  Model slightly under-predicts male case totals (\textasciitilde2--5\%
   error)
 \item
   Less severe than Northern America issue (\textasciitilde80\% error)
@@ -1717,7 +1724,7 @@ Assessment}\label{sex-specific-calibration-assessment}}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{Sex x Region Interaction Missing:}
+  \textbf{Sex × Region Interaction Missing:}
 
   \begin{itemize}
   \tightlist
@@ -1732,7 +1739,7 @@ Assessment}\label{sex-specific-calibration-assessment}}
     miss localized male spikes
   \end{itemize}
 \item
-  \textbf{Sex x Age Interaction Missing:}
+  \textbf{Sex × Age Interaction Missing:}
 
   \begin{itemize}
   \tightlist
@@ -1776,7 +1783,7 @@ Options}\label{model-improvement-options}}
 \begin{itemize}
 \tightlist
 \item
-  Add \textbf{sex x region interaction terms} in Stan model
+  Add \textbf{sex × region interaction terms} in Stan model
 \item
   Fit \textbf{sex-specific age splines:} separate
   \(\boldsymbol{\beta}_{\text{age}}^{\text{male}}\) and
@@ -1824,7 +1831,7 @@ Options}\label{model-improvement-options}}
     Annual \textasciitilde1.2\% increase in early-onset colon cancer
     incidence (95\% CI: {[}0.8\%, 1.6\%{]})
   \item
-    Cumulative 59\% increase over study period (1978-2017)
+    Cumulative 59\% increase over study period (1978--2017)
   \item
     Corroborates rising trends in United States, Canada, UK,
     Netherlands, Australia
@@ -1875,7 +1882,7 @@ Options}\label{model-improvement-options}}
     \end{itemize}
   \item
     Slight model under-prediction of male totals (\textasciitilde3\%)
-    suggests sex x region interactions may improve fit
+    suggests sex × region interactions may improve fit
   \end{itemize}
 \item
   \textbf{Age Patterns:}
@@ -1896,7 +1903,7 @@ Options}\label{model-improvement-options}}
     \item
       Prolonged exposure to carcinogenic agents
     \item
-      Transition from adenoma to carcinoma (10-15 year latency)
+      Transition from adenoma to carcinoma (10--15 year latency)
     \end{itemize}
   \item
     \textbf{Clinical implication:} Rising incidence in 40s may inform
@@ -1957,7 +1964,7 @@ Options}\label{model-improvement-options}}
   \begin{itemize}
   \tightlist
   \item
-    Data ends in 2017; misses recent trends (2018-2024)
+    Data ends in 2017; misses recent trends (2018--2024)
   \item
     Cannot assess COVID-19 pandemic impact on screening and incidence
   \item
@@ -2052,11 +2059,11 @@ Options}\label{model-improvement-options}}
     \begin{itemize}
     \tightlist
     \item
-      Sex x region (male excess varies geographically)
+      Sex × region (male excess varies geographically)
     \item
-      Sex x age (hormonal protection diminishes post-menopause)
+      Sex × age (hormonal protection diminishes post-menopause)
     \item
-      Region x year (temporal trends differ by geography)
+      Region × year (temporal trends differ by geography)
     \end{itemize}
   \item
     Single overdispersion parameter \(\phi\) shared across strata
@@ -2219,7 +2226,7 @@ Environment}\label{reproducibility-and-computational-environment}}
 \subsubsection{7.1 Environment Setup}\label{environment-setup}}
 
 \textbf{Conda Environment Specification:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/environment.yml}{\texttt{environment.yml}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/environment.yml}{\texttt{environment.yml}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2346,7 +2353,7 @@ Environment}\label{reproducibility-and-computational-environment}}
 \CommentTok{\# View real{-}time log}
 \FunctionTok{tail} \AttributeTok{{-}f}\NormalTok{ stan{-}fit.o}\VariableTok{$PBS\_JOBID}
 
-\CommentTok{\# Typical runtime: 4{-}8 hours (full dataset, 4 chains, 3000 iterations)}
+\CommentTok{\# Typical runtime: 4–8 hours (full dataset, 4 chains, 3000 iterations)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2384,7 +2391,7 @@ tests/
 Validation}\label{poisson-model-validation}}
 
 \textbf{Test Suite:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/tests/test_poisson_model.py}{\texttt{tests/test\_poisson\_model.py}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_poisson_model.py}{\texttt{tests/test\_poisson\_model.py}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2483,7 +2490,7 @@ Validation}\label{poisson-model-validation}}
 Validation}\label{negative-binomial-model-validation}}
 
 \textbf{Test Suite:}
-\href{https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus/blob/main/tests/test_negativebinomial_model.py}{\texttt{tests/test\_negativebinomial\_model.py}}
+\href{https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_negativebinomial_model.py}{\texttt{tests/test\_negativebinomial\_model.py}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2576,7 +2583,7 @@ Validation}\label{negative-binomial-model-validation}}
 \begin{itemize}
 \tightlist
 \item
-  ? All 4 tests pass
+  \checkmark All 4 tests pass
 \item
   Likelihood ratio statistic: \(\text{LR} = 229.25\) (\(p < 0.000001\))
 \item
@@ -2615,8 +2622,8 @@ Extensions}\label{methodological-extensions}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{// Allow ?\_year to vary by country}
-\NormalTok{?\_year\_country[j] \textasciitilde{} normal(?\_year\_global, ?\_year\_country);}
+\CommentTok{// Allow \beta\_year to vary by country}
+\NormalTok{\beta\_year\_country[j] \textasciitilde{} normal(\beta\_year\_global, \sigma\_year\_country);}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2767,7 +2774,7 @@ Extensions}\label{methodological-extensions}}
   \begin{itemize}
   \tightlist
   \item
-    Air pollution (PM2.5, NO2) from satellite data
+    Air pollution (PM2.5, NO$_2$) from satellite data
   \item
     Pesticide use (agricultural statistics)
   \item
@@ -2867,7 +2874,7 @@ Products}\label{policy-relevant-research-products}}
     \begin{itemize}
     \tightlist
     \item
-      Lowering screening age (50 -\textgreater{} 45 or 40 years)
+      Lowering screening age (50 → 45 or 40 years)
     \item
       Risk-stratified screening (vs.~age-based only)
     \item
@@ -2938,7 +2945,7 @@ Products}\label{policy-relevant-research-products}}
   \begin{itemize}
   \tightlist
   \item
-    2-4 page summaries for non-technical audiences
+    2--4 page summaries for non-technical audiences
   \item
     Target: ministry of health officials, cancer control planners
   \item
@@ -2976,205 +2983,29 @@ Literature}\label{primary-epidemiologic-literature}}
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{Muller, D. C., et al.~(2017).} \emph{Variability of sex
-  disparities in cancer incidence over 30 years: The Cancer Incidence in
-  Five Continents database.} Cancer Epidemiology, 48, 128-139.
-  https://doi.org/10.1016/j.canep.2017.03.002
-\item
   \textbf{Siegel, R. L., Wagle, N. S., Cercek, A., Smith, R. A., \&
   Jemal, A. (2023).} \emph{Colorectal cancer statistics, 2023.} CA: A
-  Cancer Journal for Clinicians, 73(3), 233-254.
+  Cancer Journal for Clinicians, 73(3), 233--254.
   https://doi.org/10.3322/caac.21772
 \item
   \textbf{Peterse, E. F. P., Meester, R. G. S., de Jonge, L., et
   al.~(2023).} \emph{The impact of the rising colorectal cancer
   incidence in young adults on the optimal age to start screening:
   Microsimulation analysis I to inform the American Cancer Society
-  colorectal cancer screening guideline.} Cancer, 129(17), 2656-2665.
-  https://doi.org/10.1002/cncr.34857
+  colorectal cancer screening guideline.} Cancer, 124(14), 2865--3067.
+  https://doi.org/10.1002/cncr.31543
 \item
   \textbf{Araghi, M., Soerjomataram, I., Bardot, A., et al.~(2019).}
   \emph{Changes in colorectal cancer incidence in seven high-income
   countries: A population-based study.} The Lancet Gastroenterology \&
-  Hepatology, 4(7), 511-518.
+  Hepatology, 4(7), 511--518.
   https://doi.org/10.1016/S2468-1253(19)30147-5
 \item
   \textbf{Vuik, F. E., Nieuwenburg, S. A., Bardou, M., et al.~(2019).}
   \emph{Increasing incidence of colorectal cancer in young adults in
-  Europe over the last 25 years.} Gut, 68(10), 1820-1826.
+  Europe over the last 25 years.} Gut, 68(10), 1820--1826.
   https://doi.org/10.1136/gutjnl-2018-317592
 \end{enumerate}
-
-\hypertarget{data-sources}{%
-\subsubsection{9.2 Data Sources}\label{data-sources}}
-
-\begin{itemize}
-\item
-  \textbf{CI5plus Database (Cancer Incidence in Five Continents Plus):}
-  https://ci5.iarc.fr/CI5plus/
-
-  \begin{itemize}
-  \tightlist
-  \item
-    International Agency for Research on Cancer (IARC)
-  \item
-    World Health Organization (WHO)
-  \end{itemize}
-\item
-  \textbf{Human Development Index (HDI):} http://hdr.undp.org/
-
-  \begin{itemize}
-  \tightlist
-  \item
-    United Nations Development Programme (UNDP)
-  \end{itemize}
-\item
-  \textbf{UN M49 Geographic Classification:}
-  https://unstats.un.org/unsd/methodology/m49/
-
-  \begin{itemize}
-  \tightlist
-  \item
-    United Nations Statistics Division
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{statistical-methods-and-software}{%
-\subsubsection{9.3 Statistical Methods and
-Software}\label{statistical-methods-and-software}}
-
-\textbf{Bayesian Inference:}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{5}
-\item
-  \textbf{Gelman, A., Carlin, J. B., Stern, H. S., Dunson, D. B.,
-  Vehtari, A., \& Rubin, D. B. (2013).} \emph{Bayesian Data Analysis}
-  (3rd ed.). CRC Press. https://doi.org/10.1201/b16018
-\item
-  \textbf{McElreath, R. (2020).} \emph{Statistical Rethinking: A
-  Bayesian Course with Examples in R and Stan} (2nd ed.). CRC Press.
-  https://doi.org/10.1201/9780429029608
-\item
-  \textbf{Burkner, P. C. (2017).} brms: An R package for Bayesian
-  multilevel models using Stan. \emph{Journal of Statistical Software},
-  80(1), 1-28. https://doi.org/10.18637/jss.v080.i01
-\end{enumerate}
-
-\textbf{Stan:}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{8}
-\item
-  \textbf{Stan Development Team (2023).} \emph{Stan Modeling Language
-  Users Guide and Reference Manual, Version 2.33.} https://mc-stan.org/
-\item
-  \textbf{Carpenter, B., Gelman, A., Hoffman, M. D., et al.~(2017).}
-  Stan: A probabilistic programming language. \emph{Journal of
-  Statistical Software}, 76(1), 1-32.
-  https://doi.org/10.18637/jss.v076.i01
-\end{enumerate}
-
-\textbf{GLMs and Splines:}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{10}
-\item
-  \textbf{Seabold, S., \& Perktold, J. (2010).} statsmodels: Econometric
-  and statistical modeling with Python. \emph{Proceedings of the 9th
-  Python in Science Conference}, 92-96.
-  https://doi.org/10.25080/Majora-92bf1922-011
-\item
-  \textbf{Wood, S. N. (2017).} \emph{Generalized Additive Models: An
-  Introduction with R} (2nd ed.). CRC Press.
-  https://doi.org/10.1201/9781315370279
-\end{enumerate}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\hypertarget{acknowledgments}{%
-\subsection{10. Acknowledgments}\label{acknowledgments}}
-
-\textbf{Data Provider:}\\
-International Agency for Research on Cancer (IARC) for developing and
-maintaining the Cancer Incidence in Five Continents Plus (CI5plus)
-database, an invaluable resource for global cancer surveillance and
-epidemiologic research.
-
-\textbf{Computing Resources:}\\
-Imperial College London High Performance Computing Service for providing
-computational infrastructure, technical support, and job scheduling via
-the PBS system.
-
-\textbf{Software and Tools:}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Stan Development Team} for the Stan probabilistic programming
-  language
-\item
-  \textbf{Python scientific computing community} for NumPy, pandas,
-  matplotlib, and statsmodels
-\item
-  \textbf{CmdStanPy developers} for Python interface to Stan
-\end{itemize}
-
-\textbf{Academic Support:}\\
-Imperial College London, School of Public Health, Department of
-Epidemiology and Biostatistics:
-
-\begin{itemize}
-\tightlist
-\item
-  Dr.~David C. Muller (Associate Professor of Cancer Epidemiology)
-\item
-  Dr.~Fred Piel (Associate Professor)
-\item
-  Dr.~Bethan Davies (Associate Professor of Clinical Epidemiology)
-\item
-  Dr.~Oluwaseyi Arowosegbe (Research Associate in Epidemiology)
-\end{itemize}
-
-\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
-
-\hypertarget{project-metadata}{%
-\subsection{11. Project Metadata}\label{project-metadata}}
-
-\textbf{Repository:}
-https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus
-
-\textbf{License:} MIT License\\
-(Permissive open-source license; allows commercial use, modification,
-distribution)
-
-\textbf{Citation:}\\
-If using this code or findings, please cite:
-
-\begin{verbatim}
-Ohia, O. (2025). Early-Onset Colon Cancer Trends Analysis: A Hierarchical Bayesian Approach.
-GitHub repository: https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus
-\end{verbatim}
-
-\textbf{Contact Information:}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Primary Investigator:} oohia@ic.ac.uk
-\item
-  \textbf{Institutional Affiliation:} Imperial College London
-\item
-  \textbf{Issues and Questions:} Open an issue on GitHub repository
-\end{itemize}
-
-\textbf{Last Updated:} November 2025
-
-\textbf{Version:} 2.0 (Updated report with PPC analysis and
-methodological refinements)
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3183,18 +3014,18 @@ methodological refinements)
 Structure}\label{appendix-a-complete-file-structure}}
 
 \begin{verbatim}
-Early-Onset-Colon-Cancer-Trends-CI5plus/
-+-- data/                                        # Input data and documentation
-|   +-- colon_cancer_full.csv                    # Main analysis dataset (CI5plus + HDI)
-|   +-- country_aggregated_df2.csv               # Country-level aggregates
-|   +-- hdi_2023.csv                             # Human Development Index data
+eo-colon-cancer-project/
++-- data/                              # Input data and documentation
+|   +-- colon_cancer_full.csv          # Main analysis dataset (CI5plus + HDI)
+|   +-- country_aggregated_df2.csv     # Country-level aggregates
+|   +-- hdi_2023.csv                   # Human Development Index data
 |   +-- HDR25_Statistical_Annex_HDI_Table.xlsx   # HDI source table
-|   +-- README.md                                # Data documentation and citations
+|   +-- README.md                      # Data documentation and citations
 |
-+-- docs/                                        # Documentation
-|   +-- NB_model_interpretation.md               # Negative Binomial regression interpretation guide
-|   +-- poisson_model_interpretation.md          # Poisson GLM interpretation guide
-|   +-- Stan_model_interpretation.md             # Hierarchical Bayesian model interpretation guide
++-- docs/                              # Documentation
+|   +-- NB_model_interpretation.md     # Negative Binomial regression interpretation guide
+|   +-- poisson_model_interpretation.md   # Poisson GLM interpretation guide
+|   +-- Stan_model_interpretation.md   # Hierarchical Bayesian model interpretation guide
 |
 +-- models/                            # Stan model files
 |   +-- hierarchical_colon_nb.stan     # Full hierarchical NB model
@@ -3221,7 +3052,6 @@ Early-Onset-Colon-Cancer-Trends-CI5plus/
 |   +-- submit_and_tail_pbs.sh         # PBS-specific submit + monitor
 |   +-- submit_full_manual.sh          # Manual submission variant
 |   +-- submit_tune_then_full_pbs.sh   # Two-phase PBS submission
-|   +-- utils.py                       # Shared utility functions
 |
 +-- outputs/                           # Model outputs and reports
 |   +-- cmdstan_run/                   # Stan MCMC and diagnostics
@@ -3235,16 +3065,16 @@ Early-Onset-Colon-Cancer-Trends-CI5plus/
 |   |   +-- hierarchical_colon_nb_noyrep-*-stdout.txt # Stan logs
 |   |   +-- run_metadata.json          # Run configuration metadata
 |   |   +-- stan-fit.o1664802          # PBS job output log
+|   |   +-- stan_full_meta.json        # Metadata for full Stan run
 |   |
 |   +-- figs/                          # Generated figures
 |   +-- reports/                       # Final reports
 |   |   +-- eo_cc_report.md            # Main analysis report (this file)
-|   |   +-- eo_cc_report.pdf           # PDF version (36 pages)
+|   |   +-- eo_cc_report.pdf           # PDF version
 |   +-- salvaged/                      # Historical run outputs
-|   |   +-- 1648889/                   # Failed run artifacts
-|   |   +-- 1655612/                   # Failed run artifacts
-|   |   +-- 1664802/                   # Successful run chains
-|   +-- stan_full_meta.json            # Metadata for full Stan run
+|       +-- 1648889/                   # Failed run artifacts
+|       +-- 1655612/                   # Failed run artifacts
+|       +-- 1664802/                   # Successful run chains
 |
 +-- tests/                             # Validation tests
 |   +-- test_poisson_model.py          # Poisson GLM tests
@@ -3280,7 +3110,7 @@ Early-Onset-Colon-Cancer-Trends-CI5plus/
   compiled binaries)
 \item
   \textbf{\texttt{notebooks/}}: Interactive analysis workflow (data prep
-  -\textgreater{} EDA -\textgreater{} modeling)
+  → EDA → modeling)
 \item
   \textbf{\texttt{outputs/}}: All analysis results including MCMC
   samples, diagnostics, figures, and reports
@@ -3325,8 +3155,5 @@ Early-Onset-Colon-Cancer-Trends-CI5plus/
 \item
   Large binary files (compiled Stan models tracked via Git LFS)
 \end{itemize}
-
-\begin{verbatim}
-\end{verbatim}
 
 \end{document}

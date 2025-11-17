@@ -19,3 +19,4 @@ dependencies:
   - cxx-compiler
   - make
   - pip
+  - pytest

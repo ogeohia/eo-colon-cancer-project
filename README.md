@@ -36,7 +36,7 @@ The analysis progresses through several stages:
 
 ### Outputs
 
-- **Comprehensive Report**: 36-page PDF with methods, results, interpretation, and visualizations
+- **Comprehensive Report**: PDF with methods, results, interpretation, and visualizations
 - **Diagnostic Plots**: Posterior predictive checks, MCMC diagnostics, model convergence assessments
 - **Reproducible Pipeline**: End-to-end workflow from raw data to publication-ready figures
 
@@ -45,7 +45,7 @@ The analysis progresses through several stages:
 ## 🗂 Repository Structure
 
 ```
-Early-Onset-Colon-Cancer-Trends-CI5plus/
+eo-colon-cancer-project/
 ├── data/                                          # Input data and documentation
 │   ├── colon_cancer_full.csv                      # Main analysis dataset (CI5plus + HDI)
 │   ├── country_aggregated_df2.csv                 # Country-level aggregates
@@ -74,8 +74,7 @@ Early-Onset-Colon-Cancer-Trends-CI5plus/
 │   ├── export_figs.py                 # Export publication figures
 │   ├── auto_gate.py / .sh             # Automated job monitoring
 │   ├── submit_stan.pbs                # HPC job submission script
-│   ├── submit_and_tail.sh             # Submit + monitor workflow
-│   └── utils.py                       # Shared utility functions
+│   └── submit_and_tail.sh             # Submit + monitor workflow
 │
 ├── outputs/                           # Model outputs and reports
 │   ├── cmdstan_run/                   # Stan MCMC and diagnostics
@@ -119,7 +118,7 @@ Early-Onset-Colon-Cancer-Trends-CI5plus/
   United Nations Development Programme (UNDP)  
   Socioeconomic development indicators at country level (2023)
 
-See [`data/README.md`](data/README.md) for detailed data documentation, citations, and ethical considerations.
+See [`data/README.md`](data/README.md) for detailed data documentation, and citations.
 
 > **Note**: Raw CI5plus microdata cannot be redistributed per IARC usage terms. Researchers should download directly from IARC. This repository contains aggregated/derived datasets only.
 
@@ -138,8 +137,8 @@ See [`data/README.md`](data/README.md) for detailed data documentation, citation
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus.git
-   cd Early-Onset-Colon-Cancer-Trends-CI5plus
+   git clone https://github.com/ogeohia/eo-colon-cancer-project.git
+   cd eo-colon-cancer-project
    ```
 
 2. **Set up the conda environment:**
@@ -252,31 +251,6 @@ The successful production run (job ID 1664802):
 
 ---
 
-## License
-
-This project is licensed under the **MIT License** – feel free to use and adapt with attribution.
-
-**Data Usage**: CI5plus data usage is governed by IARC terms. Users must acknowledge:
-
-> Bray F, Colombet M, Aitken JF, et al. (eds) (2023). _Cancer Incidence in Five Continents, Vol. XII (CI5plus)_. Lyon: International Agency for Research on Cancer. Available from: https://ci5.iarc.fr
-
----
-
-## 📞 Contact & Citation
-
-**Author**: Oge Ohia  
-**Institution**: Imperial College London  
-**GitHub**: [@ogeohia](https://github.com/ogeohia)
-
-If you use this code or methodology, please cite:
-
-```
-Ohia, O. (2025). Early-Onset Colon Cancer Trends: Global Analysis with CI5plus Data.
-GitHub repository: https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI5plus
-```
-
----
-
 ## 🔮 Future Directions
 
 - **Multi-cancer analysis**: Extend to breast, lung, prostate cancers for comparative insights
@@ -285,12 +259,3 @@ GitHub repository: https://github.com/ogeohia/Early-Onset-Colon-Cancer-Trends-CI
 - **Spatial models**: Add geographic correlation structure (e.g., CAR/SAR models)
 - **Survival analysis**: Link incidence trends to survival outcomes where data available
 - **Open science**: Publish pre-registered analysis protocol and share synthetic datasets for reproducibility
-
----
-
-## 🙏 Acknowledgments
-
-- **IARC CI5plus team** for curating and disseminating high-quality cancer registry data
-- **Imperial College Research Computing Service** for HPC infrastructure
-- **Stan Development Team** for probabilistic programming tools
-- **Open-source community** for scientific Python and visualization libraries
