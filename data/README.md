@@ -14,9 +14,11 @@ This directory contains the input data files used for analyzing early-onset colo
 
 - [CI5plus Summary database](https://gco.iarc.fr/media/ci5/data/ci5plus/CI5plus_Summary.zip). Tabulated annual records of multi-decade surveillance data covering ~48 countries across multiple continents
 - United Nations Development Programme (UNDP) [Human Development Index (HDI) Reports](https://hdr.undp.org/data-center/human-development-index#/indicies/HDI) 
-- Wikipedia [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Officially_assigned_code_elements) article
+- International Organization for Standardization (ISO) [3166-1](https://en.wikipedia.org/wiki/ISO_3166-1#Officially_assigned_code_elements) Wikipedia article. Codes for the representation of names of countries and their subdivisions – Part 1
 - United Nations (UN) [Standard country or area codes for statistical use (M49)](https://unstats.un.org/unsd/methodology/m49/overview)
 - ISO Country & Regional Codes (Curated Aggregation by [Luke Maurer](https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes). Accessed: 2025-09-07:) This curated CSV aggregates several publicly available standards into a single cleaned dataset for ease of use. All underlying data sources are cited separately
+- Global Data Lab [UK Subnational regions HDI](https://globaldatalab.org/shdi/table/2022/shdi+lifexp+lgnic/GBR/) (England, Wales, Northern Island and Scotland)
+- Wikipedia [US territories HDI](https://en.wikipedia.org/wiki/List_of_U.S._states_and_territories_by_Human_Development_Index_score) (Puerto Rico)
 
 **Structure:**
 
@@ -61,7 +63,7 @@ The `age_cont` variable represents the midpoint of the original registry age-ban
 
 **Description:** Human Development Index and components.
 
-**Source:** [UNDP Human Development Report 2023/2024](https://hdr.undp.org/sites/default/files/2025_HDR/HDR25_Statistical_Annex_HDI_Table.xlsx)
+**Source:** [UNDP Human Development Report (2025)](https://hdr.undp.org/sites/default/files/2025_HDR/HDR25_Statistical_Annex_HDI_Table.xlsx)
 
 - Original HDI statistical annex from UNDP Human Development Report.
 
