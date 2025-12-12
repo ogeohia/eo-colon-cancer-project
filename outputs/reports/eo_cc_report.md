@@ -15,7 +15,7 @@ This project investigates **global temporal and geographical trends in early-ons
 
 - Overdispersion in cancer counts necessitates Negative Binomial regression over Poisson models
 - Significant regional and country-level heterogeneity in incidence trends
-- Sex-specific patterns vary substantially across geographic regions; males show ~20% higher incidence (IRR ≈ 1.20)
+- Sex-specific patterns vary substantially across geographic regions; males show markedly higher incidence (IRR ~ 1.76; source: [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv))
 - Age effects exhibit non-linear patterns best captured through B-spline bases (4 degrees of freedom)
 - Hierarchical model with partial pooling improves estimation for small registries while quantifying uncertainty at multiple levels
 
@@ -51,13 +51,13 @@ Colon cancer incidence among younger adults (<50 years) has been rising in sever
 **Source:** Cancer Incidence in Five Continents Plus (CI5plus), International Agency for Research on Cancer (IARC)  
 **URL:** https://ci5.iarc.fr/CI5plus/
 
-See [`data/README.md`](data/README.md) for detailed data documentation, and citations.
+See [`data/README.md`](/data/README.md) for detailed data documentation, and citations.
 
 **Inclusion Criteria:**
 
 - **Cancer site:** Colon (ICD-O-3 code: `cancer_code == 21`)
-- **Age range:** 15–79 years (exclude ages 0–14, 80+, and unknown)
-  - Age bands converted to midpoints (17.5–77.5 years) as continuous variable `age_cont`
+- **Age range:** 15–79 years in source data (exclude ages 0–14, 80+, and unknown)
+  - Stan modeling stage narrows to **<50 years** for runtime feasibility; age bands converted to midpoints (17.5–77.5 years) as continuous variable `age_cont`
 - **Years:** 1978–2017
 - **Geographic coverage:** Registry summary tables spanning multiple continents
 
@@ -68,7 +68,7 @@ See [`data/README.md`](data/README.md) for detailed data documentation, and cita
 - Continental and UN M49 sub-regional classifications with manual mapping for edge cases
 - Human Development Index (HDI) values and categorical assignments with targeted manual fills for missing data
 
-**Data Preparation Workflow:** [`notebooks/00_data-prep.ipynb`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/00_data-prep.ipynb)
+**Data Preparation Workflow:** [`notebooks/00_data-prep.ipynb`](/notebooks/00_data-prep.ipynb)
 
 ### 2.2 Variables and Covariates
 
@@ -98,7 +98,7 @@ See [`data/README.md`](data/README.md) for detailed data documentation, and cita
 
 ### 2.3 Data Processing Steps
 
-**Workflow:** [`notebooks/00_data-prep.ipynb`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/00_data-prep.ipynb)
+**Workflow:** [`notebooks/00_data-prep.ipynb`](/notebooks/00_data-prep.ipynb)
 
 1. **Filter colon cancer records** (`cancer_code == 21`)
 2. **Merge registry metadata** to map continent and country names. Keep UK regions data separate
@@ -112,8 +112,8 @@ See [`data/README.md`](data/README.md) for detailed data documentation, and cita
    - Validate case count distributions for outliers
    - Check for temporal discontinuities in registry reporting
 
-**Output Dataset:** [`data/colon_cancer_full.csv`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/data/colon_cancer_full.csv)  
-**Approximate size:** ~150,000 registry-year-age-sex records across 10–15 major registries spanning ~25 years
+**Output Dataset:** [`data/colon_cancer_full.csv`](/data/colon_cancer_full.csv)  
+**Observed size:** 92,327 registry-year-age-sex records
 
 ---
 
@@ -136,16 +136,16 @@ See [`data/README.md`](data/README.md) for detailed data documentation, and cita
 
 **Analysis Notebooks:**
 
-- Exploratory Data Analysis: [`notebooks/01_eda.ipynb`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/01_eda.ipynb)
-- Trend Analysis: [`notebooks/02_trend-analysis.ipynb`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/02_trend-analysis.ipynb)
+- Exploratory Data Analysis: [`notebooks/01_eda.ipynb`](/notebooks/01_eda.ipynb)
+- Trend Analysis: [`notebooks/02_trend-analysis.ipynb`](/notebooks/02_trend-analysis.ipynb)
 
 ### 3.2 Key Visualizations
 
 #### Distribution of Incidence Rates: Country vs. Stratum Levels
 
-![ASIR Distribution Comparison](../figs/asir_comparison_country_vs_stratum.png)
+![ASIR Distribution Comparison](/outputs/figs/asir_comparison_country_vs_stratum.png)
 
-_**Figure 1:** Comparison of ASIR distributions at country-level (n=48 countries) vs. stratum-level (n≈90,000 observations). Both histograms use log-scale x-axis to reveal the full range of variation._
+_**Figure 1:** Comparison of ASIR distributions at country-level (n=48 countries) vs. stratum-level (n~90,000 observations). Both histograms use log-scale x-axis to reveal the full range of variation._
 
 **(A) Country-Level Mean ASIR (left panel):** Distribution of mean ASIR aggregated across all years, ages, and sexes within each country. Right-skewed distribution with mode ~10–12 per 100,000, ranging from ~0.7 (India) to ~27 (Czech Republic), representing a **38-fold between-country variation**. This reflects baseline geographic and socioeconomic differences in colon cancer risk (dietary patterns, healthcare infrastructure, genetic background).\*
 
@@ -160,7 +160,7 @@ _**Figure 1:** Comparison of ASIR distributions at country-level (n=48 countries
 **Methodological Implications:**
 
 1. **Log transformation essential:** Linear-scale analysis would be dominated by the left peak; log scale reveals the full range of variation
-2. **Overdispersion modeling required:** Poisson models (assuming Var = Mean) would severely underestimate variance in the tail; Negative Binomial explicitly models excess variance via dispersion parameter φ
+2. **Overdispersion modeling required:** Poisson models (assuming Var = Mean) would severely underestimate variance in the tail; Negative Binomial explicitly models excess variance via dispersion parameter $\phi$
 3. **Hierarchical structure justified:** The contrast between panels A and B demonstrates why country/region random effects are needed—stratum-level predictions must be partially pooled toward country means to stabilize estimates in sparse cells (low-count observations)
 4. **Age modeling critical:** The 50,000-fold range is primarily driven by age effects; non-linear age patterns (B-splines with 4 df) are essential to capture the exponential age-incidence gradient
 
@@ -170,23 +170,23 @@ _**Figure 1:** Comparison of ASIR distributions at country-level (n=48 countries
 
 - **Temporal trends:**
 
-![ASIR vs. year, stratified by age group (log y-axis)](../figs/asir_time_sex.png)
+![ASIR vs. year, stratified by age group (log y-axis)](/outputs/figs/asir_time_sex.png)
 
 - **Regional variation:**
 
-![Boxplots of ASIR by region](../figs/asir_region_boxp.png)
+![Boxplots of ASIR by region](/outputs/figs/asir_region_boxp.png)
 
 - **Socioeconomic variation:**
 
-![Boxplots of ASIR by HDI category](../figs/asir_hdi_boxp.png)
+![Boxplots of ASIR by HDI category](/outputs/figs/asir_hdi_boxp.png)
 
 - **Demographic variation:**
 
-![Boxplots of ASIR by sex](../figs/asir_sex_boxp.png)
+![Boxplots of ASIR by sex](/outputs/figs/asir_sex_boxp.png)
 
 - **Exposure vs. cases:**
 
-![Log-log scatter plots (cases vs. py), colored by region and HDI](../figs/cases_py_scat.png)
+![Log-log scatter plots (cases vs. py), colored by region and HDI](/outputs/figs/cases_py_scat.png)
 
 ---
 
@@ -196,7 +196,7 @@ _**Figure 1:** Comparison of ASIR distributions at country-level (n=48 countries
 
 ### 4.1 Baseline Generalized Linear Models
 
-**Notebook:** [`notebooks/03_poisson-NB-regression.ipynb`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/03_poisson-NB-regression.ipynb)
+**Notebook:** [`notebooks/03_poisson-NB-regression.ipynb`](/notebooks/03_poisson-NB-regression.ipynb)
 
 #### General Model Specification
 
@@ -245,7 +245,7 @@ $$\lambda_i = \text{py}_i \times \exp(\mathbf{X}_i \boldsymbol{\beta})$$
 - Mean equals variance: $E[Y_i] = \text{Var}(Y_i) = \lambda_i$
 - Independent observations
 
-**Comprehensive Interpretation Guide:** [`docs/poisson_model_interpretation.md`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/docs/poisson_model_interpretation.md)
+**Comprehensive Interpretation Guide:** [`docs/poisson_model_interpretation.md`](/docs/poisson_model_interpretation.md)
 
 _This guide provides detailed coefficient interpretation, prediction methods, confidence interval construction, and best practices for Poisson regression in epidemiologic applications._
 
@@ -281,18 +281,18 @@ Where $\phi$ is the overdispersion parameter (larger $\phi$ implies less overdis
 - Bayesian Information Criterion (BIC): Lower is better
 - Deviance/df ratio: Values >> 1 indicate overdispersion
 
-![Observed vs Predicted: Poisson vs NB](../figs/obs_vs_pred_pois_vs_nb.png)
+![Observed vs Predicted: Poisson vs NB](/outputs/figs/obs_vs_pred_pois_vs_nb.png)
 
 _**Figure 2:** Observed vs. predicted case counts comparing Poisson (blue) and Negative Binomial (orange) models. The perfect fit line (black dashed) shows ideal calibration. Negative Binomial demonstrates better calibration with tighter clustering around the line and reduced fan-shaped scatter, particularly in the bulk of the data (0–4000 cases). Both models show conservative predictions at the highest observed counts (>5000), with NB exhibiting appropriate shrinkage characteristic of partial pooling in overdispersed data._
 
-**Comprehensive Interpretation Guide:** [`docs/NB_model_interpretation.md`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/docs/NB_model_interpretation.md)
+**Comprehensive Interpretation Guide:** [`docs/NB_model_interpretation.md`](/docs/NB_model_interpretation.md)
 
 _This guide explains overdispersion modeling, variance structures, the dispersion parameter ($\phi$ or $\alpha$), diagnostic tests (deviance ratio, likelihood ratio, AIC/BIC comparison), and when to prefer Negative Binomial over Poisson models._
 
 **Validation Test Suites:**
 
-- Poisson: [`tests/test_poisson_model.py`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_poisson_model.py)
-- Negative Binomial: [`tests/test_negativebinomial_model.py`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_negativebinomial_model.py)
+- Poisson: [`tests/test_poisson_model.py`](/tests/test_poisson_model.py)
+- Negative Binomial: [`tests/test_negativebinomial_model.py`](/tests/test_negativebinomial_model.py)
 
 ---
 
@@ -305,10 +305,10 @@ _This guide explains overdispersion modeling, variance structures, the dispersio
 - Quantifies uncertainty at multiple levels
 - Provides probabilistic statements about parameters
 
-**Stan Implementation Notebook:** [`notebooks/04_pbs-stan-model.ipynb`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/notebooks/04_pbs-stan-model.ipynb)  
-**Stan Model File:** [`models/hierarchical_colon_nb.stan`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/models/hierarchical_colon_nb.stan)
+**Stan Implementation Notebook:** [`notebooks/04_pbs-stan-model.ipynb`](/notebooks/04_pbs-stan-model.ipynb)  
+**Stan Model File:** [`models/hierarchical_colon_nb.stan`](/models/hierarchical_colon_nb.stan)
 
-**Comprehensive Interpretation Guide:** [`docs/Stan_model_interpretation.md`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/docs/Stan_model_interpretation.md)
+**Comprehensive Interpretation Guide:** [`docs/Stan_model_interpretation.md`](/docs/Stan_model_interpretation.md)
 
 _This guide provides in-depth coverage of hierarchical Bayesian modeling including: partial pooling mechanisms and shrinkage, interpretation of random effects and variance components, Bayesian inference (credible intervals, posterior probabilities), convergence diagnostics (R̂, ESS, divergent transitions), MCMC sampling configuration, and HPC execution on Imperial College cluster._
 
@@ -359,26 +359,19 @@ Where:
 - $u_j$ shifts the baseline rate for country $j$ relative to its region's mean
 - Total country effect = $\gamma_{r(j)} + u_j$
 
-#### Prior Distributions
+#### Prior Distributions (as coded)
 
-**Weakly Informative Priors:**
+| Parameter                         | `hierarchical_`<br>`colon_nb`<br>`.stan` | `hierarchical_`<br>`colon_nb_`<br>`noyrep.stan` | Notes                                              |
+| --------------------------------- | --------------------------------- | ---------------------------------------- | -------------------------------------------------- |
+| $\alpha$                          | $\text{Normal}(0, 2)$             | $\text{Normal}(0, 2)$                    | Global intercept                                   |
+| $\boldsymbol{\beta}_{\text{age}}$ | $\text{Normal}(0, 1)$             | $\text{Normal}(0, 1)$                    | Age splines                                        |
+| $\beta_{\text{male}}$             | $\text{Normal}(0, 1)$             | $\text{Normal}(0, 1)$                    | Sex effect                                         |
+| $\beta_{\text{year}}$             | $\text{Normal}(0, 0.5)$           | $\text{Normal}(0, 0.2)$                  | `year_c` scaled per decade<br>`(year - mean) / 10` |
+| $\sigma_{\text{country}}$         | $\text{Exponential}(1)$           | Half-normal $\text{Normal}^+(0, 0.5)$    | Variance prior differs by Stan variant             |
+| $\sigma_{\text{region}}$          | $\text{Exponential}(1)$           | Half-normal $\text{Normal}^+(0, 0.5)$    | Variance prior differs by Stan variant             |
+| $\phi$                            | $\text{Exponential}(1)$           | $\text{Gamma}(2, 0.1)$                   | Overdispersion prior differs                       |
 
-| Parameter                         | Prior Distribution      | Rationale                                                   |
-| --------------------------------- | ----------------------- | ----------------------------------------------------------- |
-| $\alpha$                          | $\text{Normal}(0, 5)$   | Global intercept; wide prior allows data to dominate        |
-| $\boldsymbol{\beta}_{\text{age}}$ | $\text{Normal}(0, 2)$   | Age spline coefficients; regularizes to prevent overfitting |
-| $\beta_{\text{male}}$             | $\text{Normal}(0, 1)$   | Sex effect; centered at no effect with moderate uncertainty |
-| $\beta_{\text{year}}$             | $\text{Normal}(0, 0.1)$ | Temporal trend; small SD reflects expected gradual changes  |
-| $\sigma_{\text{country}}$         | $\text{Exponential}(1)$ | Country-level SD; weakly informative, ensures positivity    |
-| $\sigma_{\text{region}}$          | $\text{Exponential}(1)$ | Region-level SD; weakly informative, ensures positivity     |
-| $\phi$                            | $\text{Gamma}(2, 0.1)$  | Overdispersion parameter; mode near realistic values        |
-
-**Prior Justification:**
-
-- Priors are weakly informative, allowing data to dominate inference
-- Exponential priors on variance parameters ensure positivity and prevent degenerate solutions
-- Normal priors on fixed effects centered at zero represent skepticism of large effects
-- Prior scales chosen based on typical effect sizes in epidemiologic literature
+**Implication:** Temporal effects are modeled per decade; to interpret per year, divide the coefficient by 10 before exponentiating.
 
 #### Computational Details
 
@@ -391,7 +384,7 @@ Where:
    - Faster convergence assessment without large `y_rep` arrays
 
 2. **Phase 2: Generated quantities pass**
-   - Script: [`scripts/generate_yrep.py`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/scripts/generate_yrep.py)
+   - Script: [`scripts/generate_yrep.py`](/scripts/generate_yrep.py)
    - Reads fitted parameters from Phase 1
    - Generates posterior predictive samples (`y_rep`) post-hoc
    - Enables posterior predictive checks without re-sampling
@@ -402,35 +395,23 @@ Where:
 - **Scheduler:** PBS (Portable Batch System)
 - **Resources per job:** 8 CPUs, 16 GB memory
 - **Backend:** CmdStanPy with within-chain threading enabled
-- **Submission script:** [`scripts/submit_tune_then_full_pbs.sh`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/scripts/submit_tune_then_full_pbs.sh)
+- **Submission script:** [`scripts/submit_tune_then_full_pbs.sh`](/scripts/submit_tune_then_full_pbs.sh)
 - **Parallelization:** `reduce_sum` for threading within chains (vectorized log-likelihood)
 
 **MCMC Sampler Settings:**
 
 - **Algorithm:** No-U-Turn Sampler (NUTS) with dynamic Hamiltonian Monte Carlo
-- **Chains:** 4 independent chains (for convergence diagnostics)
-- **Warmup iterations:** 1,000 (adaptation phase)
-- **Sampling iterations:** 2,000 per chain (post-warmup)
-- **Total draws:** 8,000 (4 chains × 2,000 iterations)
-- **Thinning:** None (Stan's NUTS is efficient; thinning unnecessary)
-- **Target acceptance rate:** 0.95 (`adapt_delta`; higher reduces divergences)
-- **Maximum tree depth:** 12 (`max_treedepth`; prevents infinite loops)
+- **Chains / iterations:** Merged diagnostics available in [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv); per-chain draw files for a full 4×2000 configuration are not present in `outputs/cmdstan_run/`
+- **Threading:** Within-chain threading via `reduce_sum`
+- **Target acceptance rate:** Recorded runs used `adapt_delta` up to 0.98; see `outputs/cmdstan_run/run_metadata.json`
+- **Maximum tree depth:** 12
 
-**Convergence Diagnostics:**
+**Convergence Diagnostics (from merged summary and diagnose files):**
 
-- **$\hat{R}$ (Gelman-Rubin statistic):** Target < 1.01 (measures between-chain vs. within-chain variance)
-- **Effective Sample Size (ESS):**
-  - Bulk ESS: Target > 400 per parameter (inference on posterior mean/median)
-  - Tail ESS: Target > 400 per parameter (inference on tail quantiles)
-- **Divergent transitions:** Target = 0 (indicates numerical issues if present)
-- **Tree depth saturation:** Monitor for warnings (suggests max_treedepth too low)
-- **Energy Bayesian Fraction of Missing Information (E-BFMI):** Target > 0.2
-
-**Output Files:**
-
-- Posterior summaries: `outputs/stan_summary_full.csv`
-- Generated quantities (y_rep): Produced by Phase 2 script
-- Diagnostic plots: `outputs/cmdstan_run/gq_1664802/`
+- Posterior summaries: [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv) (max $\hat{R}$ ~ 1.013; min ESS_bulk ~ 238)
+- Divergent transitions: none reported in <br> `outputs/cmdstan_run/diagnose_1664802.txt`
+- Tree depth / E-BFMI: no issues reported in <br> `outputs/cmdstan_run/stan_full_diagnose.txt`
+- Available chain CSVs: <br> `outputs/cmdstan_run/hierarchical_colon_nb_noyrep-20251107023940.csv`; <br> `outputs/salvaged/1655612/hierarchical_colon_nb_noyrep-20251105093507_1.csv`; <br> `outputs/salvaged/1655612/hierarchical_colon_nb_noyrep-20251105093507_2.csv` (no-yrep). A y-rep chain also exists at <br> `outputs/salvaged/1648889/hierarchical_colon_nb-20251103195119_1.csv` (different model variant).
 
 **Job Monitoring:**
 
@@ -470,29 +451,23 @@ tail -f stan-fit.o$PBS_JOBID
 
 ### 5.2 Age Effect
 
-![Age-Incidence Curve](../cmdstan_run/gq_1664802/age_incidence_curve.png){width=65%}
+![Age-Incidence Curve](/outputs/cmdstan_run/gq_1664802/age_incidence_curve.png){width=65%}
 
-_**Figure 3:** Predicted colon cancer incidence rate vs. age for reference stratum (Female, Australia/New Zealand, median year, median region/country random effects). The curve exhibits characteristic exponential increase with age, acceleratinh sharply after about ~50, consistent with somatic mutation accumulation models and prolonged carcinogenic exposures._
+_**Figure 3:** Posterior predictive age-incidence curve for the <50 cohort (reference: Female, Australia/New Zealand, median year, median random effects)._
 
 #### Interpretation
 
-- **B-spline flexibility:** Captures non-linear age-incidence relationship without imposing rigid parametric form
-- **Inflection point:** Incidence accelerates sharply after age ~40 years
-- **Biological plausibility:** Pattern consistent with multi-stage carcinogenesis models (accumulation of genetic/epigenetic alterations)
-- **Smooth curve:** Avoids overfitting to arbitrary age-group bins (5-year bands in original data)
-- **Uncertainty quantification:** 95% CI widens at extremes (ages 15–25 and 70–79) where data are sparser
+- Early-onset only: the curve is restricted to ages <50, matching the Stan modeling cohort.
+- No inference is made beyond 50; the shape reflects the fitted spline within the modeled age range.
 
 ### 5.3 Temporal Trends
 
 #### Global Temporal Effect ($\beta_{\text{year}}$)
 
-- **Posterior mean:** 0.012
-- **95% Credible Interval:** [0.008, 0.016]
-- **Incidence Rate Ratio per year:** $\exp(0.012) \approx 1.012$
-- **Interpretation:**
-  - ~1.2% annual increase in early-onset colon cancer incidence rates globally
-  - Over 10 years: $(1.012)^{10} \approx 1.13$ → 13% cumulative increase
-  - Over 39 years (1978–2017): $(1.012)^{39} \approx 1.59$ → 59% cumulative increase
+- **Posterior mean (per decade):** 0.269 (per-year ~ 0.027); source: [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv)
+- **Incidence Rate Ratio:** per decade $\exp(0.269) ~ 1.31$; per year $\exp(0.027) ~ 1.03$
+- **95% Credible Interval (per decade):** [0.264, 0.275]
+- **Interpretation:** ~2.7% increase per year (about 31% per decade) for the <50 cohort, noting `year_c` is scaled per decade
 
 #### Consistency with Literature
 
@@ -510,11 +485,9 @@ _**Figure 3:** Predicted colon cancer incidence rate vs. age for reference strat
 
 #### Male Effect ($\beta_{\text{male}}$)
 
-- **Posterior mean:** 0.18
-- **95% Credible Interval:** [0.14, 0.22]
-- **Incidence Rate Ratio (Male vs. Female):** $\exp(0.18) \approx 1.20$
+- **Posterior mean:** 0.564 → IRR $~ 1.76$ (95%: [1.74, 1.78]); source: [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv)
 - **Interpretation:**
-  - Males have ~20% higher early-onset colon cancer incidence than females
+  - Males have ~76% higher early-onset colon cancer incidence than females
   - Holding age, year, geography, and exposure constant
 
 #### Biological and Behavioral Mechanisms
@@ -537,55 +510,28 @@ _**Figure 3:** Predicted colon cancer incidence rate vs. age for reference strat
 **Region-Level Variance Component:**
 
 - **$\sigma_{\text{region}}$:**
-  - Posterior mean: 0.35
-  - 95% Credible Interval: [0.22, 0.51]
+  - Posterior mean: 0.76 (source: [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv))
+  - 95% Credible Interval: [0.53, 1.04]
 - **Interpretation:**
   - Moderate between-region variability in baseline incidence
-  - Some regions (e.g., Northern America, Western Europe) have systematically higher baseline rates
-  - Others (e.g., Sub-Saharan Africa, Eastern Asia) have lower baseline rates
+  - Some regions (e.g., Northern America, Western Europe) have systematically higher baseline rates; others lower
 
 **Country-Level Variance Component:**
 
 - **$\sigma_{\text{country}}$:**
-  - Posterior mean: 0.48
-  - 95% Credible Interval: [0.38, 0.61]
+  - Posterior mean: 0.35 (source: `outputs/stan_summary_full.csv`)
+  - 95% Credible Interval: [0.31, 0.40]
 - **Interpretation:**
-  - Substantial within-region, between-country variability
-  - Countries within the same region can have markedly different incidence profiles
-  - Suggests country-specific factors (healthcare infrastructure, screening practices, dietary habits) outweigh broad regional patterns
-
-**Variance Comparison:**
-
-- $\sigma_{\text{country}} > \sigma_{\text{region}}$
-- **Implication:** More heterogeneity within regions (between countries) than between regions
-- **Policy relevance:** Interventions may need country-level customization rather than one-size-fits-all regional approaches
-
-**Country-Level ASIR Distribution (Ages 15–79, 1978–2017):**
-
-**Top 5 High-Incidence Countries:**
-
-1. **Czech Republic:** 26.16 per 100,000 (75,268 cases / 287.8M person-years)
-2. **Estonia:** 19.42 per 100,000 (7,520 cases / 38.7M person-years)
-3. **Lithuania:** 18.09 per 100,000 (14,443 cases / 79.8M person-years)
-4. **Iceland:** 17.52 per 100,000 (1,437 cases / 8.2M person-years)
-5. **USA:** 17.48 per 100,000 (1,924,435 cases / 11.0B person-years)
-
-**Bottom 3 Low-Incidence Countries:**
-
-- **Uganda:** 0.46 per 100,000
-- **India:** 1.23 per 100,000
-- **Thailand:** 1.65 per 100,000
-
-**Range:** **~57-fold variation** (0.46 to 26.16 per 100,000)
+  - Within-region, between-country variability is present but smaller than region-level variability in this fit
+  - Countries within the same region can differ markedly
 
 #### Overdispersion Parameter
 
 - **$\phi$:**
-  - Posterior mean: 12.3
-  - 95% Credible Interval: [10.8, 14.1]
+  - Posterior mean: 17.6 (source: [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv))
+  - 95% Credible Interval: [16.8, 18.5]
 - **Interpretation:**
-  - Strong overdispersion: count variance is $\sim 12 \times$ the mean
-  - $\text{Var}(Y) = \mu + \frac{\mu^2}{\phi} \approx \mu + 0.08\mu^2$
+  - Strong overdispersion relative to Poisson; Negative Binomial specification is warranted
   - For large means, quadratic term dominates (substantial extra-Poisson variability)
 - **Validation:** Negative Binomial model essential; Poisson would severely underestimate uncertainty and produce over-confident intervals
 
@@ -605,84 +551,27 @@ _**Figure 3:** Predicted colon cancer incidence rate vs. age for reference strat
 
 #### Posterior Predictive Check: Regional Totals
 
-![Posterior Predictive Check: Regional Totals](../cmdstan_run/gq_1664802/ppc_region_totals.png)
+![Posterior Predictive Check: Regional Totals](/outputs/cmdstan_run/gq_1664802/ppc_region_totals.png)
 
 _**Figure 4:** Posterior predictive check for total case counts by region. Black dots show observed totals (sum of cases within each region across all years/ages/sexes). Blue dots show posterior median predictions from the hierarchical model; light blue bars show 90% credible intervals._
 
 ##### Regional Calibration Assessment
 
-**Well-Calibrated Regions (11/12):**
-
-- Sub-Saharan Africa, South-eastern Asia, Southern Asia, Latin America and the Caribbean, Western Asia, Southern Europe, Australia and New Zealand, Western Europe, Eastern Europe, Eastern Asia, Northern Europe
-- **Interpretation:** For most regions, observed totals fall within or near the 90% posterior interval, indicating adequate model fit
-
-**Under-Predicted Region:**
-
-- **Northern America:**
-  - Observed total: ~300,000+ cases
-  - Predicted median: ~60,000 cases
-  - 90% PI upper bound: ~70,000 cases
-  - **Severity:** Observed far exceeds 90% PI (>4σ deviation)
-
-##### Potential Explanations for Northern America Under-Prediction
-
-1. **Data dominance effect:**
-
-   - Northern America contributes ~50% of global case burden in dataset
-   - Hierarchical partial pooling may shrink estimates toward global mean
-   - Large registries can be "over-regularized" in standard hierarchical models
-
-2. **Structural heterogeneity:**
-
-   - Unique screening practices: widespread colonoscopy adoption in USA (starting age 50, but opportunistic screening <50)
-   - Different population risk profiles: higher obesity prevalence, dietary patterns (ultra-processed foods)
-   - Healthcare system factors: better registry coverage and completeness
-
-3. **Missing interactions:**
-
-   - Current model uses fixed region effects and country random effects
-   - May need **region × year interactions** to capture differential temporal trends
-   - Or **region × age interactions** to allow age patterns to vary by region
-
-4. **Non-exchangeability:**
-   - Standard hierarchical model assumes countries within a region are exchangeable (drawn from same distribution)
-   - Northern America (USA, Canada) may be fundamentally different from other regions in ways not captured by random effects
-
-##### Model Improvement Recommendations
-
-- Fit separate model for Northern America vs. rest-of-world
-- Add region × year interaction terms
-- Use **non-centered parameterization** with stronger priors on $\sigma_{\text{region}}$ to reduce shrinkage
-- Consider **robust hierarchical model** with heavier-tailed distributions (Student-t) for random effects
+- **Calibration:** Most regions’ observed totals are close to posterior medians. North America shows modest under-prediction (obs 323,335 vs pred mean 312,622; z ~ 2.42) per `outputs/cmdstan_run/gq_1664802/ppc_summary_1664802.csv`.
+- **Interpretation:** Regional fit is broadly adequate; the largest deviation is ~3% under-prediction for North America.
 
 ---
 
 #### Posterior Predictive Check: Sex Totals
 
-![Posterior Predictive Check by Sex](../cmdstan_run/gq_1664802/ppc_sex_totals.png)
+![Posterior Predictive Check by Sex](/outputs/cmdstan_run/gq_1664802/ppc_sex_totals.png)
 
 _**Figure 5:** Posterior predictive check for total case counts by sex. Black dots show observed totals (sum of cases for each sex across all regions/years/ages). Blue dots show posterior median predictions; light blue bars show 90% credible intervals._
 
 ##### Sex-Specific Calibration Assessment
 
-**Female: Excellent Calibration**
-
-- Observed: ~175,000 cases
-- Predicted median: ~175,000 cases
-- **Conclusion:** Perfect alignment; observed sits directly on posterior median and within narrow 90% PI
-
-**Male: Marginal Under-Prediction**
-
-- Observed: ~305,000 cases
-- Predicted median: ~290,000 cases
-- 90% PI upper bound: ~300,000 cases
-- **Discrepancy:** Observed exceeds upper bound by ~5,000 cases (~2% error)
-
-##### Interpretation
-
-- Model slightly under-predicts male case totals (~2–5% error)
-- Less severe than Northern America issue (~80% error)
-- Suggests potential for improvement but acceptable for exploratory analysis
+- **Calibration:** Female totals are close to predictions; male totals show modest under-prediction (obs 301,032 vs pred mean 292,385; z ~ 2.23) per `outputs/cmdstan_run/gq_1664802/ppc_summary_1664802.csv`.
+- **Interpretation:** Sex-specific PPCs indicate ~3% under-prediction for males; acceptable for exploratory analysis.
 
 ##### Potential Mechanisms
 
@@ -716,9 +605,9 @@ _**Figure 5:** Posterior predictive check for total case counts by sex. Black do
 
 ##### Overall Assessment
 
-- Female predictions: Excellent (no action needed)
+- Female predictions: Close to observed totals
 - Male predictions: Minor under-prediction (~3% error); acceptable for current analysis but flag for refinement in future iterations
-- Both are far better calibrated than regional PPC (Northern America issue dominates)
+- Both are far better calibrated than the modest regional under-prediction noted for North America
 
 ---
 
@@ -728,21 +617,21 @@ _**Figure 5:** Posterior predictive check for total case counts by sex. Black do
 
 1. **Global Upward Trend:**
 
-   - Annual ~1.2% increase in early-onset colon cancer incidence (95% CI: [0.8%, 1.6%])
-   - Cumulative 59% increase over study period (1978–2017)
+   - ~2.7% annual increase (31% per decade) based on $\beta_{\text{year}}$ = 0.269 per decade ([`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv))
+   - Cumulative ~59% increase over 39 years implied by $(1.027)^{39}$
    - Corroborates rising trends in United States, Canada, UK, Netherlands, Australia
    - Suggests phenomenon not limited to single healthcare system or registry
 
 2. **Geographic Heterogeneity:**
 
-   - Substantial country-level variation: $\sigma_{\text{country}} = 0.48$ (95% CI: [0.38, 0.61])
-   - Country effects exceed region effects: $\sigma_{\text{country}} > \sigma_{\text{region}}$
+   - Region-level variability: $\sigma_{\text{region}} = 0.76$ (95% CI: [0.53, 1.04]); country-level: $\sigma_{\text{country}} = 0.35$ (95% CI: [0.31, 0.40]) from [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv)
+   - Region effects exceed country effects in this fit
    - **Implication:** Localized risk factors (dietary patterns, obesity prevalence, screening practices, environmental exposures) outweigh broad regional trends
    - **Policy relevance:** Interventions require country-level customization
 
 3. **Sex Disparities:**
 
-   - 20% male excess (IRR = 1.20; 95% CI: [1.15, 1.25])
+   - ~76% male excess (IRR ~ 1.76; 95% CI: [1.74, 1.78]; [`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv))
    - Aligns with known sex differences in colorectal cancer:
      - **Hormonal mechanisms:** Estrogen protective effect in premenopausal females
      - **Behavioral factors:** Historically higher male smoking rates, alcohol consumption
@@ -880,7 +769,7 @@ _**Figure 5:** Posterior predictive check for total case counts by sex. Black do
 
 ### 7.1 Environment Setup
 
-**Conda Environment Specification:** [`environment.yml`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/environment.yml)
+**Conda Environment Specification:** [`environment.yml`](/environment.yml)
 
 ```bash
 # Create and activate environment
@@ -914,7 +803,7 @@ conda activate colon-cancer-data
 # Open and run data cleaning notebook
 jupyter notebook notebooks/00_data-prep.ipynb
 
-# Expected output: data/colon_cancer_full.csv (~150k rows)
+# Expected output: data/colon_cancer_full.csv (92,327 rows)
 ```
 
 **Step 2: Exploratory Analysis**
@@ -924,7 +813,9 @@ jupyter notebook notebooks/00_data-prep.ipynb
 jupyter notebook notebooks/01_eda.ipynb
 jupyter notebook notebooks/02_trend-analysis.ipynb
 
-# Generates figures in outputs/figs/
+# Outputs:
+# - Descriptive stats and exploratory plots
+
 ```
 
 **Step 3: Baseline Regression Models**
@@ -969,14 +860,14 @@ tail -f stan-fit.o$PBS_JOBID
 ```bash
 # Generate posterior predictive samples (if not done during sampling)
 python scripts/generate_yrep.py \
-  --fitted outputs/cmdstan_run/hierarchical_colon_nb_noyrep-TIMESTAMP.csv \
+  --fitted outputs/cmdstan_run/hierarchical_colon_nb_noyrep-20251107023940.csv \
   --output outputs/cmdstan_run/gq_1664802/
 
 # Export publication-quality figures
 python scripts/export_figs.py
 
 # Open diagnostics and PPC notebook
-jupyter notebook notebooks/04_stan-models.ipynb
+jupyter notebook notebooks/04_pbs-stan-model.ipynb
 ```
 
 ### 7.3 Unit Testing and Validation
@@ -991,7 +882,7 @@ tests/
 
 #### 7.3.1 Poisson Model Validation
 
-**Test Suite:** [`tests/test_poisson_model.py`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_poisson_model.py)
+**Test Suite:** [`tests/test_poisson_model.py`](/tests/test_poisson_model.py)
 
 ```bash
 # Run Poisson validation tests
@@ -1041,7 +932,7 @@ python tests/test_poisson_model.py
 
 #### 7.3.2 Negative Binomial Model Validation
 
-**Test Suite:** [`tests/test_negativebinomial_model.py`](https://github.com/ogeohia/eo-colon-cancer-project/blob/main/tests/test_negativebinomial_model.py)
+**Test Suite:** [`tests/test_negativebinomial_model.py`](/tests/test_negativebinomial_model.py)
 
 ```bash
 # Run Negative Binomial validation tests
@@ -1280,9 +1171,9 @@ eo-colon-cancer-project/
 │   └── README.md                      # Data documentation and citations
 │
 ├── docs/                              # Documentation
-│   ├── NB_model_interpretation.md     # Negative Binomial regression interpretation guide
+│   ├── NB_model_interpretation.md     # Neg Bin interpretation guide
 │   ├── poisson_model_interpretation.md   # Poisson GLM interpretation guide
-│   └── Stan_model_interpretation.md   # Hierarchical Bayesian model interpretation guide
+│   └── Stan_model_interpretation.md   # Stan model interpretation guide
 │
 ├── models/                            # Stan model files
 │   ├── hierarchical_colon_nb.stan     # Full hierarchical NB model
@@ -1313,7 +1204,7 @@ eo-colon-cancer-project/
 ├── outputs/                           # Model outputs and reports
 │   ├── cmdstan_run/                   # Stan MCMC and diagnostics
 │   │   ├── gq_1664802/                # Successful GQ run outputs
-│   │   │   ├── *.png                  # Posterior predictive check plots (15 files)
+│   │   │   ├── *.png                  # Posterior predictive check plots
 │   │   │   ├── ppc_summary_*.csv      # PPC summary statistics
 │   │   │   ├── diagnose.txt           # MCMC diagnostics (all passed)
 │   │   │   └── README.md              # Job documentation
@@ -1326,7 +1217,7 @@ eo-colon-cancer-project/
 │   │
 │   ├── figs/                          # Generated figures
 │   ├── reports/                       # Final reports
-│   │   ├── eo_cc_report.md            # Main analysis report (this file)
+│   │   ├── eo_cc_report.md            # Main analysis report
 │   │   └── eo_cc_report.pdf           # PDF version
 │   └── salvaged/                      # Historical run outputs
 │       ├── 1648889/                   # Failed run artifacts
@@ -1343,14 +1234,14 @@ eo-colon-cancer-project/
 │   ├── NB_model_interpretation.md       # Negative Binomial guide
 │   └── Stan_model_interpretation.md     # Stan model guide
 │
-├── archive/                           # Archived outputs (local only, not tracked)
+├── archive/                           # Archived outputs
 │   ├── cmdstan_logs_csvs/             # Historical Stan runs
 │   ├── cmdstan_diagnostics/           # Historical diagnostics
 │   ├── stan_metadata/                 # Historical metadata
 │   ├── failed_pbs_runs/               # Failed job artifacts
 │   └── submit_stan.sbatch             # Unused Slurm script
 │
-├── environment.yml                    # Conda environment specification
+├── environment.yml                    # Conda environment specs
 ├── .gitignore                         # Git exclusion patterns
 └── README.md                          # Project README
 
@@ -1358,19 +1249,19 @@ eo-colon-cancer-project/
 
 **Key Directories:**
 
-- **`data/`**: Raw and processed datasets (~150k observations)
-- **`models/`**: Stan model files (source `.stan` and compiled binaries)
-- **`notebooks/`**: Interactive analysis workflow (data prep → EDA → modeling)
-- **`outputs/`**: All analysis results including MCMC samples, diagnostics, figures, and reports
-- **`scripts/`**: Automation for HPC job submission, posterior predictive checks, and figure generation
-- **`tests/`**: Unit tests validating Poisson and Negative Binomial model implementations
+- **[`data/`](/data/)**: Raw and processed datasets (92,327 observations)
+- **[`models/`](/models/)**: Stan model files (source `.stan` and compiled binaries)
+- **[`notebooks/`](/notebooks/)**: Interactive analysis workflow (data prep → EDA → modeling)
+- **[`outputs/`](/outputs/)**: All analysis results including MCMC samples, diagnostics, figures, and reports
+- **[`scripts/`](/scripts/)**: Automation for HPC job submission, posterior predictive checks, and figure generation
+- **[`tests/`](/tests/)**: Unit tests validating Poisson and Negative Binomial model implementations
 
 **Notable Files:**
 
-- **`outputs/stan_summary_full.csv`**: Posterior summaries for all parameters (convergence metrics, ESS, Rhat)
-- **`outputs/cmdstan_run/gq_1664802/`**: Final model run with posterior predictive samples (job ID 1664802)
-- **`scripts/submit_tune_then_full_pbs.sh`**: Primary HPC submission script (two-phase sampling)
-- **`tests/test_negativebinomial_model.py`**: Overdispersion validation (alpha parameter estimation)
+- **[`outputs/stan_summary_full.csv`](/outputs/stan_summary_full.csv)**: Posterior summaries for all parameters (convergence metrics, ESS, Rhat)
+- **[`outputs/cmdstan_run/gq_1664802/`](/outputs/cmdstan_run/gq_1664802/)**: Final model run with posterior predictive samples (job ID 1664802)
+- **[`scripts/submit_tune_then_full_pbs.sh`](/scripts/submit_tune_then_full_pbs.sh)**: Primary HPC submission script (two-phase sampling)
+- **[`tests/test_negativebinomial_model.py`](/tests/test_negativebinomial_model.py)**: Overdispersion validation (alpha parameter estimation)
 
 **Excluded from Repository:**
 

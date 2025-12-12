@@ -56,8 +56,6 @@ eo-colon-cancer-project/
 ├── models/                            # Stan model files
 │   ├── hierarchical_colon_nb.stan     # Full hierarchical NB model
 │   ├── hierarchical_colon_nb_noyrep.stan  # Sampling variant (no y_rep)
-│   ├── hierarchical_colon_nb          # Compiled executable (full)
-│   └── hierarchical_colon_nb_noyrep   # Compiled executable (noyrep)
 │
 ├── notebooks/                         # Analysis workflow
 │   ├── 00_data-prep.ipynb             # Data cleaning and harmonization

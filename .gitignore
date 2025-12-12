@@ -20,6 +20,7 @@ ENV/
 # Editor/IDE
 .vscode/
 .copilot/
+reviewer-guidance.md
 
 # OS files
 .DS_Store
@@ -39,14 +40,13 @@ git_session_log.txt
 # Ignore only explicitly large generated draws CSVs
 /outputs/cmdstan_run/gq_1664802/hierarchical_colon_nb-20251107155530.csv
 /outputs/cmdstan_run/hierarchical_colon_nb_noyrep-20251107023940.csv
-# Allow ppc summary CSVs and other small CSVs by default (no blanket CSV ignore)
-
 
 # Salvaged/other heavy outputs
 /outputs/salvaged
 
 # Archive - don't track archived artifacts
+archive/
 /archive/**
+
 # (legacy) explicitly ignore large CSV log dumps (redundant with above, kept for clarity)
 /archive/cmdstan_logs_csvs/**/*.csv
-

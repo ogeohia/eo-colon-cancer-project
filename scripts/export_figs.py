@@ -178,6 +178,9 @@ def main():
     if not SUMMARY.exists():
         raise SystemExit(f'Missing summary {SUMMARY}. Run sampling or place summary CSV.')
     df = pd.read_csv(DATA)
+    # Align with Stan run_model: restrict to under-50 cohort for plotting
+    if "age_cont" in df.columns:
+        df = df[df["age_cont"] < 50].reset_index(drop=True)
     summ = read_summary(SUMMARY)
     export_age_curve(df, summ)
     export_irr_forest(df, summ)
