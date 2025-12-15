@@ -59,3 +59,5 @@ eo_cc_report.log
 eo_cc_report.pdf
 eo_cc_report.tex
 
+# custom cleanup scripts
+scripts/cleanup_outputs.sh
