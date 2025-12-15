@@ -147,22 +147,22 @@ See [`data/README.md`](/data/README.md) for detailed data documentation, and cit
 
 _**Figure 1:** Comparison of ASIR distributions at country-level (n=48 countries) vs. stratum-level (n~90,000 observations). Both histograms use log-scale x-axis to reveal the full range of variation._
 
-**(A) Country-Level Mean ASIR (left panel):** Distribution of mean ASIR aggregated across all years, ages, and sexes within each country. Right-skewed distribution with mode ~10–12 per 100,000, ranging from ~0.7 (India) to ~27 (Czech Republic), representing a **38-fold between-country variation**. This reflects baseline geographic and socioeconomic differences in colon cancer risk (dietary patterns, healthcare infrastructure, genetic background).\*
+**(A) Country-Level Mean ASIR (left panel):** Distribution of mean ASIR aggregated across all years, ages, and sexes within each country. Right-skewed distribution with mode ~10–12 per 100,000, ranging from ~0.46 (lowest) to ~26.16 (highest), representing a **~57-fold between-country variation** (computed from `data/colon_cancer_full.csv` by country-level cases/py × 1e5).
 
 **(B) Stratum-Level ASIR (right panel):** Distribution of ASIR across all individual registry-year-age-sex strata. **Extremely right-skewed** with:
 
-- **Massive left peak (~0.1–0.2 per 100k):** Dominated by young-age strata (15–30 years) where incidence is inherently low, particularly in low-risk countries and among females
-- **Long right tail (up to 500+ per 100k):** Rare high-risk strata (males, ages 45–49, high-incidence countries like Czech Republic and Denmark)
-- **50,000-fold range:** Reflects the combined effects of age (exponential increase), sex (male excess ~20%), geography (country/region), and time (temporal trends 1978–2017)
+- **Massive left peak near zero:** Driven by strata with zero or very low cases, especially at younger ages
+- **Long right tail (up to ~3.9e2 per 100k):** Rare high-incidence strata drive the upper end of the distribution
+- **~7.8e3-fold range (nonzero strata):** From the smallest nonzero stratum ASIR (~5.0e-2 per 100k) to the maximum (~3.87e2 per 100k), based on stratum-level cases/py × 1e5 in `data/colon_cancer_full.csv`
 
-**Key Insight:** The stratum-level distribution reveals that **within-country variability (age × sex × year) is orders of magnitude larger than between-country variability** (50,000-fold vs. 38-fold). The massive left peak explains why young-onset colon cancer is considered "rare" in absolute terms, even though rates are rising. The long tail identifies high-risk subgroups requiring targeted screening and surveillance.
+**Key Insight:** The stratum-level distribution shows **within-country variability (age × sex × year) that far exceeds between-country variability** (~7.8e3-fold vs. ~57-fold). The massive left peak explains why early-onset colon cancer remains rare in absolute terms for most strata, while the long tail highlights high-risk subgroups.
 
 **Methodological Implications:**
 
 1. **Log transformation essential:** Linear-scale analysis would be dominated by the left peak; log scale reveals the full range of variation
 2. **Overdispersion modeling required:** Poisson models (assuming Var = Mean) would severely underestimate variance in the tail; Negative Binomial explicitly models excess variance via dispersion parameter $\phi$
 3. **Hierarchical structure justified:** The contrast between panels A and B demonstrates why country/region random effects are needed—stratum-level predictions must be partially pooled toward country means to stabilize estimates in sparse cells (low-count observations)
-4. **Age modeling critical:** The 50,000-fold range is primarily driven by age effects; non-linear age patterns (B-splines with 4 df) are essential to capture the exponential age-incidence gradient
+4. **Age modeling critical:** The ~7.8e3-fold stratum range is largely driven by age effects; non-linear age patterns (B-splines with 4 df) are essential to capture the exponential age-incidence gradient
 
 **Clinical Relevance:** The concentration of observations at low ASIR (<1 per 100k) reinforces that early-onset colon cancer remains rare in absolute terms for younger ages. However, the long tail (ASIR > 100) identifies high-risk strata where incidence approaches that of traditional screening ages (50+ years), suggesting potential benefit from earlier screening initiation in these populations (e.g., males aged 45–49 in high-incidence countries).\*
 
