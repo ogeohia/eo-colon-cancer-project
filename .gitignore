@@ -50,3 +50,12 @@ archive/
 
 # (legacy) explicitly ignore large CSV log dumps (redundant with above, kept for clarity)
 /archive/cmdstan_logs_csvs/**/*.csv
+
+# LaTeX report build artifacts
+eo_cc_report.aux 
+eo_cc_report.out 
+eo_cc_report.toc    
+eo_cc_report.log
+eo_cc_report.pdf
+eo_cc_report.tex
+
