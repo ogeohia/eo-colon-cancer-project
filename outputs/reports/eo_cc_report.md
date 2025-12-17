@@ -1270,3 +1270,4 @@ eo-colon-cancer-project/
 - `cmdstan-*/`: CmdStan installation directory
 - `.ipynb_checkpoints/`: Jupyter notebook auto-saves
 - Large binary files (compiled Stan models tracked via Git LFS)
+  
