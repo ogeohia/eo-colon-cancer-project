@@ -113,7 +113,7 @@ See [`data/README.md`](/data/README.md) for detailed data documentation, and cit
    - Check for temporal discontinuities in registry reporting
 
 **Output Dataset:** [`data/colon_cancer_full.csv`](/data/colon_cancer_full.csv)  
-**Observed size:** 92,327 registry-year-age-sex records
+**Observed size:** 92,326 registry-year-age-sex records
 
 ---
 
@@ -803,7 +803,7 @@ conda activate colon-cancer-data
 # Open and run data cleaning notebook
 jupyter notebook notebooks/00_data-prep.ipynb
 
-# Expected output: data/colon_cancer_full.csv (92,327 rows)
+# Expected output: data/colon_cancer_full.csv (92,326 rows)
 ```
 
 **Step 2: Exploratory Analysis**
@@ -852,7 +852,7 @@ qstat -u $USER
 # View real-time log
 tail -f stan-fit.o$PBS_JOBID
 
-# Typical runtime: 4–8 hours (full dataset, 4 chains, 3000 iterations)
+# Typical runtime depends on chains/settings; the recorded production run was ~7 hours (1 chain, 2500 iterations: 1000 warmup + 1500 sampling)
 ```
 
 **Step 5: Post-Processing and Visualization**
@@ -1217,8 +1217,7 @@ eo-colon-cancer-project/
 │   │
 │   ├── figs/                          # Generated figures
 │   ├── reports/                       # Final reports
-│   │   ├── eo_cc_report.md            # Main analysis report
-│   │   └── eo_cc_report.pdf           # PDF version
+│   │   └── eo_cc_report.md            # Main analysis report
 │   └── salvaged/                      # Historical run outputs
 │       ├── 1648889/                   # Failed run artifacts
 │       ├── 1655612/                   # Failed run artifacts
@@ -1249,7 +1248,7 @@ eo-colon-cancer-project/
 
 **Key Directories:**
 
-- **[`data/`](/data/)**: Raw and processed datasets (92,327 observations)
+- **[`data/`](/data/)**: Raw and processed datasets (92,326 observations)
 - **[`models/`](/models/)**: Stan model files (source `.stan` and compiled binaries)
 - **[`notebooks/`](/notebooks/)**: Interactive analysis workflow (data prep → EDA → modeling)
 - **[`outputs/`](/outputs/)**: All analysis results including MCMC samples, diagnostics, figures, and reports

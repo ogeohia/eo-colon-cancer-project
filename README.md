@@ -25,7 +25,7 @@ The analysis progresses through several stages:
 
 1. **Data Preparation**: Clean, harmonize, and aggregate CI5plus registry data with population denominators
 2. **Exploratory Analysis**: Visualize age-specific incidence rates, temporal trends, and geographic patterns
-3. **Trend Analysis**: Quantify age-period effects using segmented regression and joinpoint analysis
+3. **Trend Analysis**: Summarise temporal patterns using age-specific rates and regression-based trend estimates
 4. **GLM Regression**: Fit Poisson and Negative Binomial models to account for overdispersion in count data
 5. **Bayesian Hierarchical Modeling**: Implement multilevel models in Stan with:
    - Region and country random effects to capture geographic clustering
@@ -36,7 +36,9 @@ The analysis progresses through several stages:
 
 ### Outputs
 
-- **Comprehensive Report**: PDF with methods, results, interpretation, and visualizations
+- **Comprehensive Report**: Markdown report with methods, results, interpretation, and visualizations
+- **Presentation Slides**:  👨🏻‍🏫 [[ View Presentation ]](https://gamma.app/docs/Global-Early-Onset-Colon-Cancer-Trends-Analysis--frwunh5402nccwb)
+
 - **Diagnostic Plots**: Posterior predictive checks, MCMC diagnostics, model convergence assessments
 - **Reproducible Pipeline**: End-to-end workflow from raw data to publication-ready figures
 
@@ -82,7 +84,7 @@ eo-colon-cancer-project/
 │   │       └── diagnose.txt           # MCMC diagnostics (all passed)
 │   ├── figs/                          # Generated figures
 │   ├── reports/                       # Final reports
-│   │   └── eo_cc_report.pdf           # Main analysis report
+│   │   └── eo_cc_report.md            # Main analysis report
 │   └── stan_full_meta.json            # Metadata for full Stan run
 │
 ├── tests/                             # Validation tests
@@ -163,7 +165,7 @@ jupyter notebook notebooks/
 **Bayesian Models (local):**
 
 ```bash
-python scripts/run_model.py --model models/hierarchical_colon_nb.stan --chains 4 --iter 2000
+python scripts/run_model.py --model models/hierarchical_colon_nb_noyrep.stan --chains 1 --iter 2500
 ```
 
 **HPC Cluster (PBS):**
@@ -211,9 +213,9 @@ The analysis revealed:
 - **Sex differences**: Distinct patterns by sex, with faster increases in males in some regions
 - **Temporal trends**: Evidence of accelerating incidence in recent decades for certain age groups
 - **Model performance**: Negative Binomial hierarchical models effectively captured overdispersion and geographic clustering
-- **MCMC diagnostics**: All chains converged (R̂ < 1.01), ESS > 1000 for all parameters
+- **MCMC diagnostics**: CmdStan `diagnose` reports no problems detected for the production run; merged summary stats (including split R̂ and ESS) are in `outputs/stan_summary_full.csv`
 
-See [`outputs/reports/eo_cc_report.pdf`](outputs/reports/eo_cc_report.pdf) for the full analysis report.
+See [`outputs/reports/eo_cc_report.md`](outputs/reports/eo_cc_report.md) for the full analysis report.
 
 ---
 
@@ -221,31 +223,32 @@ See [`outputs/reports/eo_cc_report.pdf`](outputs/reports/eo_cc_report.pdf) for t
 
 ### Bayesian Hierarchical Model Specification
 
-The final model (`hierarchical_colon_nb.stan`) implements:
+The primary sampling model (`hierarchical_colon_nb_noyrep.stan`) implements:
 
 - **Likelihood**: Negative Binomial with log-link to handle overdispersion
 - **Hierarchical structure**:
   - Regional random effects (continent-level)
   - Country random effects nested within regions
 - **Fixed effects**:
-  - Age (B-spline basis with 5 knots)
+  - Age (B-spline basis, `df=4`, standardized)
   - Sex (male indicator)
   - Calendar year (centered, per-decade scaling)
 - **Priors**:
   - Weakly informative priors on regression coefficients
-  - Half-normal priors on variance components
-  - Gamma prior on overdispersion parameter (φ)
-- **Parallelization**: `reduce_sum()` for efficient within-chain parallelization
+  - Weakly informative priors on variance components and overdispersion (φ)
+- **Parallelization**: `reduce_sum()` for efficient within-chain parallelization (sampling model)
 - **Validation**: Prior predictive checks, posterior predictive checks, MCMC diagnostics
+
+Posterior predictive draws (`y_rep`) are generated via the generated quantities model (`hierarchical_colon_nb.stan`).
 
 ### HPC Workflow
 
 The successful production run (job ID 1664802):
 
-- **Sampling**: 4 chains × 2500 iterations (1000 warmup + 1500 sampling)
+- **Sampling**: 1 chain × 2500 iterations (1000 warmup + 1500 sampling)
 - **Runtime**: ~7 hours on Imperial College HPC (PBS scheduler)
 - **Generated Quantities**: Separate job for posterior predictive draws (y_rep)
-- **Diagnostics**: All chains converged, no divergences, ESS > 1000, R̂ < 1.01
+- **Diagnostics**: CmdStan `diagnose` reports no problems detected (see `outputs/stan_full_diagnose.txt`); merged summary stats (including split R̂ and ESS) are in `outputs/stan_summary_full.csv`
 
 ---
 

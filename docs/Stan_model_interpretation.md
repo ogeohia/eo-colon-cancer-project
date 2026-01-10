@@ -787,11 +787,11 @@ model = CmdStanModel(stan_file='models/hierarchical_colon_nb.stan')
 ```python
 fit = model.sample(
     data=stan_data,
-    chains=4,                    # Run 4 independent chains
-    parallel_chains=4,           # Parallel execution
+  chains=1,
+  parallel_chains=1,
     iter_warmup=1000,            # Warmup iterations (adaptation)
-    iter_sampling=2000,          # Sampling iterations
-    adapt_delta=0.95,            # Target acceptance rate
+  iter_sampling=1500,          # Sampling iterations
+  adapt_delta=0.98,            # Target acceptance rate
     max_treedepth=12,            # Maximum NUTS tree depth
     thin=1,                      # No thinning (NUTS is efficient)
     seed=42,                     # Reproducibility
@@ -801,30 +801,22 @@ fit = model.sample(
 
 **Output:**
 
-- Total draws: $4 \times 2000 = 8000$ posterior samples
-- Runtime: 4–8 hours on HPC (8 CPUs, 16 GB RAM)
+- Total draws: $1 \times 1500 = 1500$ posterior samples
+- Runtime: depends on chain count and hardware; the recorded single-chain production run was ~7 hours on the Imperial College HPC
 
 ### HPC Execution
 
-**PBS Job Script (`scripts/submit_tune_then_full_pbs.sh`):**
+**PBS submission wrapper (`scripts/submit_tune_then_full_pbs.sh`):**
 
 ```bash
-#!/bin/bash
-#PBS -l select=1:ncpus=8:mem=16gb
-#PBS -l walltime=12:00:00
-#PBS -N stan-fit
+# Example: match the production run settings via environment overrides
+export STAN_CHAINS=1
+export STAN_WARMUP=1000
+export STAN_SAMPLING=1500
+export STAN_ADAPT_DELTA=0.98
+export STAN_MAX_TREEDEPTH=12
 
-module load anaconda3
-source activate colon-cancer-data
-
-python scripts/run_model.py \
-  --data data/colon_cancer_full.csv \
-  --model models/hierarchical_colon_nb_noyrep \
-  --output outputs/cmdstan_run/ \
-  --chains 4 \
-  --iter_warmup 1000 \
-  --iter_sampling 2000 \
-  --adapt_delta 0.95
+qsub scripts/submit_tune_then_full_pbs.sh
 ```
 
 **Submit:**

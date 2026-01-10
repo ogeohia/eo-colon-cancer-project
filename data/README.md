@@ -160,8 +160,8 @@ Final results in outputs/cmdstan_run/gq_1664802/
 ## 📝 **Notes**
 
 1. **Missing Countries:** Some countries may have incomplete temporal coverage due to registry reporting practices
-2. **Age Focus:** Analysis focuses on early-onset colon cancer (ages 20-49)
-3. **ICD Codes:** Colon cancer defined using ICD-10 codes C18-C20
+2. **Age Focus:** Analysis focuses on early-onset colon cancer (ages 15-49)
+3. **ICD Codes:** Colon cancer defined using ICD-10 codes C21
 4. **Data Quality:** Registry data quality varies by country; CI5plus includes quality indicators
 
 ---
