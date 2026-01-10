@@ -1,3 +1,5 @@
+👨🏻‍🏫 [[ View Presentation ]](https://gamma.app/docs/Global-Early-Onset-Colon-Cancer-Trends-Analysis--frwunh5402nccwb)
+
 # Early-Onset Colon Cancer Trends: Global Analysis with CI5plus Data
 
 A comprehensive Bayesian hierarchical modeling study of early-onset colon cancer incidence trends using population-based cancer registry data from **CI5plus** (Cancer Incidence in Five Continents).
