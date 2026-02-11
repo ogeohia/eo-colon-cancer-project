@@ -599,7 +599,7 @@ _**Figure 5:** Posterior predictive check for total case counts by sex. Black do
 ##### Model Improvement Options
 
 - Add **sex × region interaction terms** in Stan model
-- Fit **sex-specific age splines:** separate $\boldsymbol{\beta}_{\text{age}}^{\text{male}}$ and $\boldsymbol{\beta}_{\text{age}}^{\text{female}}$
+- Fit **sex-specific age splines:** separate $\beta_{\text{age}}^{\text{male}}$ and $\beta_{\text{age}}^{\text{female}}$
 - Allow **sex-specific overdispersion:** $\phi_{\text{male}}$ and $\phi_{\text{female}}$
 - Diagnostic: Plot male-to-female ratio by region to identify heterogeneity
 
